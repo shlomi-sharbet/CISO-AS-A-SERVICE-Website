@@ -1,4 +1,5 @@
 _worker.js
+inject-env.js
 wrangler.json
 wrangler.jsonc
 wrangler.toml
