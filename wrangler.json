@@ -4,11 +4,6 @@
   "main": "_worker.js",
   "compatibility_date": "2024-09-23",
   "keep_vars": true,
-  "secrets": {
-    "required": [
-      "WEB3FORMS_ACCESS_KEY"
-    ]
-  },
   "assets": {
     "directory": ".",
     "binding": "ASSETS"

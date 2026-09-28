@@ -1,4 +1,7 @@
 _worker.js
+create-secrets.js
+inject-env.js
+.secrets*
 wrangler.json
 wrangler.jsonc
 wrangler.toml
