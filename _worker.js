@@ -22,13 +22,18 @@ export default {
                     });
                 }
 
-                // שליפת המפתח הסודי ממשתנה הסביבה של Cloudflare
-                const accessKey = env.WEB3FORMS_ACCESS_KEY;
+                // שליפת המפתח הסודי ממשתנה הסביבה של Cloudflare (תמיכה בשמות ובפורמטים שונים)
+                const accessKey = env?.WEB3FORMS_ACCESS_KEY
+                    || env?.web3forms_access_key
+                    || env?.WEB3FORMS_KEY
+                    || (typeof WEB3FORMS_ACCESS_KEY !== 'undefined' ? WEB3FORMS_ACCESS_KEY : null)
+                    || (typeof globalThis !== 'undefined' ? globalThis.WEB3FORMS_ACCESS_KEY : null);
 
                 if (!accessKey) {
+                    const availableKeys = Object.keys(env || {}).filter(k => k !== "ASSETS");
                     return new Response(JSON.stringify({
                         success: false,
-                        message: "משתנה הסביבה WEB3FORMS_ACCESS_KEY אינו מוגדר בהגדרות Cloudflare"
+                        message: `משתנה הסביבה WEB3FORMS_ACCESS_KEY אינו מוגדר בהגדרות Cloudflare. (משתנים שנמצאו: ${availableKeys.length ? availableKeys.join(', ') : 'אף משתנה'})`
                     }), {
                         status: 500,
                         headers: { "Content-Type": "application/json; charset=utf-8" }
