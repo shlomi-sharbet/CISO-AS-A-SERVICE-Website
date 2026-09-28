@@ -80,6 +80,26 @@ export default {
             }
         }
 
+        // נקודת בדיקה מאובטחת לבדיקת משתני סביבה (ללא חשיפת ערכים)
+        if (url.pathname === "/api/debug") {
+            const protoKeys = env ? Object.getOwnPropertyNames(Object.getPrototypeOf(env) || {}) : [];
+            const ownKeys = Object.getOwnPropertyNames(env || {});
+            const allKeys = [...new Set([...ownKeys, ...protoKeys])];
+            const safeSummary = {};
+            for (const k of allKeys) {
+                if (k !== "ASSETS") {
+                    safeSummary[k] = typeof env[k];
+                }
+            }
+            return new Response(JSON.stringify({
+                status: "live",
+                allKeysFound: allKeys.filter(k => k !== "ASSETS"),
+                keysTypes: safeSummary
+            }), {
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+
         // הגשת קבצים סטטיים (index.html וכו')
         if (env.ASSETS) {
             return env.ASSETS.fetch(request);
