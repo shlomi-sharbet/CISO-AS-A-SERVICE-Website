@@ -1,0 +1,9 @@
+_worker.js
+wrangler.json
+wrangler.jsonc
+wrangler.toml
+.git*
+README*
+functions/
+.dev.vars
+.env*

@@ -723,7 +723,13 @@
                 body: json
             })
                 .then(async (response) => {
-                    let jsonResponse = await response.json();
+                    let jsonResponse;
+                    try {
+                        jsonResponse = await response.json();
+                    } catch (parseError) {
+                        throw new Error(`שרת לא החזיר תגובה תקינה (סטטוס ${response.status})`);
+                    }
+
                     if (response.status === 200 && jsonResponse.success) {
                         statusDiv.innerHTML = '<span style="color: var(--accent);">הפנייה התקבלה בהצלחה! ניצור איתך קשר בהקדם.</span>';
                         form.reset();
@@ -735,7 +741,8 @@
                     }
                 })
                 .catch(error => {
-                    statusDiv.innerHTML = '<span style="color: #ef4444;">אירעה שגיאה בשליחה. אנא נסה שנית.</span>';
+                    console.error("Submission error:", error);
+                    statusDiv.innerHTML = `<span style="color: #ef4444;">אירעה שגיאה בשליחה: ${error.message || 'אנא נסה שנית.'}</span>`;
                 });
         });
     </script>
