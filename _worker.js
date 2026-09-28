@@ -24,10 +24,13 @@ export default {
 
                 // שליפת המפתח הסודי ממשתנה הסביבה של Cloudflare (תמיכה בשמות ובפורמטים שונים)
                 const accessKey = env?.WEB3FORMS_ACCESS_KEY
+                    || env?.WEB3FORMS_ACCES
                     || env?.web3forms_access_key
+                    || env?.web3forms_acces
                     || env?.WEB3FORMS_KEY
                     || (typeof WEB3FORMS_ACCESS_KEY !== 'undefined' ? WEB3FORMS_ACCESS_KEY : null)
-                    || (typeof globalThis !== 'undefined' ? globalThis.WEB3FORMS_ACCESS_KEY : null);
+                    || (typeof WEB3FORMS_ACCES !== 'undefined' ? WEB3FORMS_ACCES : null)
+                    || (typeof globalThis !== 'undefined' ? (globalThis.WEB3FORMS_ACCESS_KEY || globalThis.WEB3FORMS_ACCES) : null);
 
                 if (!accessKey) {
                     const availableKeys = Object.keys(env || {}).filter(k => k !== "ASSETS");
