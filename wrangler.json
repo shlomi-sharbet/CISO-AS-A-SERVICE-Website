@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ciso-as-a-service-website",
+  "name": "cyber-path",
   "main": "_worker.js",
   "compatibility_date": "2024-09-23",
   "keep_vars": true,
