@@ -45,7 +45,7 @@ export default {
 
                 // אימות Cloudflare Turnstile (אימות חלק ומודרני)
                 const turnstileToken = data['cf-turnstile-response'];
-                const turnstileSecret = env?.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
+                const turnstileSecret = env?.TURNSTILE_SECRET_KEY;
 
                 if (turnstileToken && turnstileSecret) {
                     try {
