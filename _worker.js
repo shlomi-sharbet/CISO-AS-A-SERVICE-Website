@@ -43,24 +43,55 @@ export default {
                     });
                 }
 
-                // אימות Cloudflare Turnstile (אימות חלק ומודרני)
+                // אימות Cloudflare Turnstile (Canonical Server-Side siteverify according to Cloudflare Turnstile standard)
                 const turnstileToken = data['cf-turnstile-response'];
-                const turnstileSecret = env?.TURNSTILE_SECRET_KEY;
+                const turnstileSecret = env?.TURNSTILE_SECRET || env?.TURNSTILE_SECRET_KEY;
+                const expectedAction = "contact";
+                const expectedHostnames = new Set(
+                    (env?.TURNSTILE_HOSTNAMES ?? "cyber-path.shlomi-sharbet.workers.dev")
+                        .split(",")
+                        .map(h => h.trim())
+                        .filter(Boolean)
+                );
 
-                if (turnstileToken && turnstileSecret) {
-                    try {
-                        const clientIp = request.headers.get("CF-Connecting-IP");
-                        const verifyFormData = new FormData();
-                        verifyFormData.append("secret", turnstileSecret);
-                        verifyFormData.append("response", turnstileToken);
-                        if (clientIp) verifyFormData.append("remoteip", clientIp);
-
-                        const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-                            method: "POST",
-                            body: verifyFormData
+                if (turnstileSecret) {
+                    if (
+                        typeof turnstileToken !== "string" ||
+                        turnstileToken.length === 0 ||
+                        turnstileToken.length > 2048
+                    ) {
+                        return new Response(JSON.stringify({
+                            success: false,
+                            message: "אימות Cloudflare Turnstile חסר או שגוי."
+                        }), {
+                            status: 403,
+                            headers: { "Content-Type": "application/json; charset=utf-8" }
                         });
-                        const verifyOutcome = await verifyRes.json();
-                        if (!verifyOutcome.success) {
+                    }
+
+                    try {
+                        const clientIp = request.headers.get("CF-Connecting-IP") || request.headers.get("x-forwarded-for");
+                        const verifyBody = new URLSearchParams({
+                            secret: turnstileSecret,
+                            response: turnstileToken
+                        });
+                        if (clientIp) verifyBody.set("remoteip", clientIp);
+
+                        const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            signal: AbortSignal.timeout(10_000),
+                            body: verifyBody
+                        });
+
+                        if (!r.ok) throw new Error(`siteverify returned HTTP ${r.status}`);
+                        const result = await r.json();
+
+                        if (
+                            !result.success ||
+                            (result.action && result.action !== expectedAction) ||
+                            (result.hostname && expectedHostnames.size > 0 && !expectedHostnames.has(result.hostname))
+                        ) {
                             return new Response(JSON.stringify({
                                 success: false,
                                 message: "אימות Cloudflare Turnstile נכשל. אנא נסה שוב."
@@ -70,7 +101,14 @@ export default {
                             });
                         }
                     } catch (turnstileErr) {
-                        console.warn("Turnstile check warning:", turnstileErr.message);
+                        console.error("Turnstile siteverify error:", turnstileErr);
+                        return new Response(JSON.stringify({
+                            success: false,
+                            message: "שגיאה במהלך בדיקת האימות מול Cloudflare."
+                        }), {
+                            status: 403,
+                            headers: { "Content-Type": "application/json; charset=utf-8" }
+                        });
                     }
                 }
 

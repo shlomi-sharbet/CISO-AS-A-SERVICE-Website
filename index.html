@@ -673,7 +673,7 @@
 
                     <!-- אימות Cloudflare Turnstile (1-Click / אימות חלק) -->
                     <div class="form-group" style="display: flex; justify-content: center; margin: 20px 0;">
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFIgpX1XrEvooJ7V" data-theme="dark" data-language="he"></div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFIgpX1XrEvooJ7V" data-action="contact" data-theme="dark" data-language="he"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">שליחת פנייה לשיחת ייעוץ</button>
@@ -738,11 +738,17 @@
                         }
                     } else {
                         statusDiv.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message || 'אירעה שגיאה בשליחה. אנא נסה שוב או פנה ישירות.'}</span>`;
+                        if (typeof turnstile !== 'undefined') {
+                            turnstile.reset();
+                        }
                     }
                 })
                 .catch(error => {
                     console.error("Submission error:", error);
                     statusDiv.innerHTML = `<span style="color: #ef4444;">אירעה שגיאה בשליחה: ${error.message || 'אנא נסה שנית.'}</span>`;
+                    if (typeof turnstile !== 'undefined') {
+                        turnstile.reset();
+                    }
                 });
         });
     </script>
