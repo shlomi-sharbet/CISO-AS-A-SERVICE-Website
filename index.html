@@ -671,9 +671,9 @@
                             placeholder="ספר בקצרה על האתגר או הדרישה שקיבלתם..."></textarea>
                     </div>
 
-                    <!-- אימות hCaptcha דרך Web3Forms (Zero-Config) -->
+                    <!-- אימות Cloudflare Turnstile (1-Click / אימות חלק) -->
                     <div class="form-group" style="display: flex; justify-content: center; margin: 20px 0;">
-                        <div class="h-captcha" data-captcha="true" data-theme="dark" data-lang="he"></div>
+                        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-language="he"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">שליחת פנייה לשיחת ייעוץ</button>
@@ -690,8 +690,8 @@
         </div>
     </footer>
 
-    <!-- סקריפט Web3Forms לטעינת hCaptcha אוטומטית -->
-    <script src="https://web3forms.com/client/script.js" async defer></script>
+    <!-- סקריפט Cloudflare Turnstile הרשמי -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <!-- סקריפט שליחת הטופס ללא רענון עמוד (AJAX) -->
     <script>
@@ -701,10 +701,10 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // אימות קאפצ'ה בצד לקוח (מוודא שהמשתמש סימן את התיבה)
-            const hCaptchaResponse = form.querySelector('textarea[name=h-captcha-response]');
-            if (hCaptchaResponse && !hCaptchaResponse.value) {
-                statusDiv.innerHTML = '<span style="color: #ef4444;">אנא אשרו שאינכם רובוט (סמנו את הקאפצ\'ה).</span>';
+            // אימות Turnstile (מוודא שהמשתמש השלים את האימות)
+            const turnstileResponse = form.querySelector('[name="cf-turnstile-response"]');
+            if (turnstileResponse && !turnstileResponse.value) {
+                statusDiv.innerHTML = '<span style="color: #ef4444;">אנא אשרו את תיבת האימות של Cloudflare Turnstile.</span>';
                 return;
             }
 
@@ -733,8 +733,8 @@
                     if (response.status === 200 && jsonResponse.success) {
                         statusDiv.innerHTML = '<span style="color: var(--accent);">הפנייה התקבלה בהצלחה! ניצור איתך קשר בהקדם.</span>';
                         form.reset();
-                        if (typeof hcaptcha !== 'undefined') {
-                            hcaptcha.reset();
+                        if (typeof turnstile !== 'undefined') {
+                            turnstile.reset();
                         }
                     } else {
                         statusDiv.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message || 'אירעה שגיאה בשליחה. אנא נסה שוב או פנה ישירות.'}</span>`;

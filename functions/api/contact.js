@@ -31,9 +31,15 @@ export async function onRequestPost(context) {
             });
         }
 
+        // ניקוי טוקנים טכניים של קאפצ'ה לפני העברה ל-Web3Forms
+        const cleanPayload = { ...data };
+        delete cleanPayload['cf-turnstile-response'];
+        delete cleanPayload['h-captcha-response'];
+        delete cleanPayload['g-recaptcha-response'];
+
         // הרכבת הנתונים עבור Web3Forms
         const payload = {
-            ...data,
+            ...cleanPayload,
             access_key: accessKey,
             subject: data.subject || "פנייה חדשה מאתר CISO as a Service",
             from_name: "CISO Website"

@@ -43,9 +43,46 @@ export default {
                     });
                 }
 
+                // אימות Cloudflare Turnstile (אימות חלק ומודרני)
+                const turnstileToken = data['cf-turnstile-response'];
+                const turnstileSecret = env?.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
+
+                if (turnstileToken && turnstileSecret) {
+                    try {
+                        const clientIp = request.headers.get("CF-Connecting-IP");
+                        const verifyFormData = new FormData();
+                        verifyFormData.append("secret", turnstileSecret);
+                        verifyFormData.append("response", turnstileToken);
+                        if (clientIp) verifyFormData.append("remoteip", clientIp);
+
+                        const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+                            method: "POST",
+                            body: verifyFormData
+                        });
+                        const verifyOutcome = await verifyRes.json();
+                        if (!verifyOutcome.success) {
+                            return new Response(JSON.stringify({
+                                success: false,
+                                message: "אימות Cloudflare Turnstile נכשל. אנא נסה שוב."
+                            }), {
+                                status: 403,
+                                headers: { "Content-Type": "application/json; charset=utf-8" }
+                            });
+                        }
+                    } catch (turnstileErr) {
+                        console.warn("Turnstile check warning:", turnstileErr.message);
+                    }
+                }
+
+                // ניקוי טוקנים טכניים של קאפצ'ה לפני העברה ל-Web3Forms
+                const cleanPayload = { ...data };
+                delete cleanPayload['cf-turnstile-response'];
+                delete cleanPayload['h-captcha-response'];
+                delete cleanPayload['g-recaptcha-response'];
+
                 // הרכבת הנתונים עבור Web3Forms
                 const payload = {
-                    ...data,
+                    ...cleanPayload,
                     access_key: accessKey,
                     subject: data.subject || "פנייה חדשה מאתר CISO as a Service",
                     from_name: "CISO Website"
