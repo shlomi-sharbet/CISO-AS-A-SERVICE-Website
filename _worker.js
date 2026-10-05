@@ -1,7 +1,16 @@
 /**
- * Cloudflare Worker / Pages Advanced Mode entrypoint
- * Handles /api/contact securely and serves static assets for all other routes.
+ * Cloudflare Worker entrypoint
+ * Hardened Backend-for-Frontend (BFF) Proxy for contact form and secure static asset delivery.
  */
+
+const SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+};
+
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -9,6 +18,18 @@ export default {
         // ניתוב עבור טופס יצירת הקשר
         if (url.pathname === "/api/contact" && request.method === "POST") {
             try {
+                // בדיקת גודל גוף הבקשה למניעת הצפת זיכרון (DoS)
+                const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
+                if (contentLength > 50000) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "גודל הבקשה חורג מהמותר."
+                    }), {
+                        status: 413,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
                 const data = await request.json();
 
                 // הגנת ספאם (Honeypot) - זיהוי בוטים
@@ -18,32 +39,77 @@ export default {
                         message: "Spam check triggered"
                     }), {
                         status: 200,
-                        headers: { "Content-Type": "application/json; charset=utf-8" }
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                     });
                 }
 
-                // שליפת המפתח הסודי ממשתנה הסביבה של Cloudflare (תמיכה בשמות ובפורמטים שונים)
-                const accessKey = env?.WEB3FORMS_ACCESS_KEY
-                    || env?.WEB3FORMS_ACCES
-                    || env?.web3forms_access_key
-                    || env?.web3forms_acces
-                    || env?.WEB3FORMS_KEY
-                    || (typeof WEB3FORMS_ACCESS_KEY !== 'undefined' ? WEB3FORMS_ACCESS_KEY : null)
-                    || (typeof WEB3FORMS_ACCES !== 'undefined' ? WEB3FORMS_ACCES : null)
-                    || (typeof globalThis !== 'undefined' ? (globalThis.WEB3FORMS_ACCESS_KEY || globalThis.WEB3FORMS_ACCES) : null);
-
-                if (!accessKey) {
-                    const availableKeys = Object.keys(env || {}).filter(k => k !== "ASSETS");
+                // ולידציית קלט בסיסית וסינון אורך שדות (Input Validation)
+                if (typeof data.name !== "string" || !data.name.trim() || data.name.length > 150) {
                     return new Response(JSON.stringify({
                         success: false,
-                        message: `משתנה הסביבה WEB3FORMS_ACCESS_KEY אינו מוגדר בהגדרות Cloudflare. (משתנים שנמצאו: ${availableKeys.length ? availableKeys.join(', ') : 'אף משתנה'})`
+                        message: "שם מלא אינו תקין או ארוך מדי."
                     }), {
-                        status: 500,
-                        headers: { "Content-Type": "application/json; charset=utf-8" }
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                     });
                 }
 
-                // אימות Cloudflare Turnstile (Canonical Server-Side siteverify according to Cloudflare Turnstile standard)
+                if (typeof data.company !== "string" || !data.company.trim() || data.company.length > 150) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שם החברה אינו תקין או ארוך מדי."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (typeof data.phone !== "string" || !data.phone.trim() || data.phone.length > 30) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "מספר טלפון אינו תקין או ארוך מדי."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (typeof data.email !== "string" || !emailRegex.test(data.email.trim()) || data.email.length > 150) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "כתובת דוא״ל אינה תקינה."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (data.message && (typeof data.message !== "string" || data.message.length > 3000)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "תוכן ההודעה ארוך מדי (מקסימום 3000 תווים)."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                // שליפת המפתח הסודי ממשתנה הסביבה של Cloudflare
+                const accessKey = env?.WEB3FORMS_ACCESS_KEY;
+
+                if (!accessKey) {
+                    console.error("Configuration error: WEB3FORMS_ACCESS_KEY is not defined in Cloudflare environment secrets.");
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שגיאת תצורה בשרת בעת עיבוד הבקשה."
+                    }), {
+                        status: 500,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                // אימות Cloudflare Turnstile (Canonical Server-Side siteverify)
                 const turnstileToken = data['cf-turnstile-response'];
                 const turnstileSecret = env?.TURNSTILE_SECRET || env?.TURNSTILE_SECRET_KEY;
                 const expectedAction = "contact";
@@ -65,7 +131,7 @@ export default {
                             message: "אימות Cloudflare Turnstile חסר או שגוי."
                         }), {
                             status: 403,
-                            headers: { "Content-Type": "application/json; charset=utf-8" }
+                            headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                         });
                     }
 
@@ -97,7 +163,7 @@ export default {
                                 message: "אימות Cloudflare Turnstile נכשל. אנא נסה שוב."
                             }), {
                                 status: 403,
-                                headers: { "Content-Type": "application/json; charset=utf-8" }
+                                headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                             });
                         }
                     } catch (turnstileErr) {
@@ -107,7 +173,7 @@ export default {
                             message: "שגיאה במהלך בדיקת האימות מול Cloudflare."
                         }), {
                             status: 403,
-                            headers: { "Content-Type": "application/json; charset=utf-8" }
+                            headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                         });
                     }
                 }
@@ -122,7 +188,7 @@ export default {
                 const payload = {
                     ...cleanPayload,
                     access_key: accessKey,
-                    subject: data.subject || "פנייה חדשה מאתר CISO as a Service",
+                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? data.subject : "פנייה חדשה מאתר CISO as a Service",
                     from_name: "CISO Website"
                 };
 
@@ -140,46 +206,35 @@ export default {
 
                 return new Response(JSON.stringify(result), {
                     status: response.status,
-                    headers: { "Content-Type": "application/json; charset=utf-8" }
+                    headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                 });
 
             } catch (error) {
+                console.error("Contact API Server Error:", error);
                 return new Response(JSON.stringify({
                     success: false,
-                    message: "אירעה שגיאה בשרת בעת עיבוד הבקשה",
-                    error: error.message
+                    message: "אירעה שגיאה בשרת בעת עיבוד הבקשה."
                 }), {
                     status: 500,
-                    headers: { "Content-Type": "application/json; charset=utf-8" }
+                    headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
                 });
             }
         }
 
-        // נקודת בדיקה מאובטחת לבדיקת משתני סביבה (ללא חשיפת ערכים)
-        if (url.pathname === "/api/debug") {
-            const protoKeys = env ? Object.getOwnPropertyNames(Object.getPrototypeOf(env) || {}) : [];
-            const ownKeys = Object.getOwnPropertyNames(env || {});
-            const allKeys = [...new Set([...ownKeys, ...protoKeys])];
-            const safeSummary = {};
-            for (const k of allKeys) {
-                if (k !== "ASSETS") {
-                    safeSummary[k] = typeof env[k];
-                }
+        // הגשת קבצים סטטיים (index.html וכו') עם כותרות אבטחה
+        if (env.ASSETS) {
+            const assetResponse = await env.ASSETS.fetch(request);
+            const headers = new Headers(assetResponse.headers);
+            for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+                headers.set(key, value);
             }
-            return new Response(JSON.stringify({
-                status: "live",
-                allKeysFound: allKeys.filter(k => k !== "ASSETS"),
-                keysTypes: safeSummary
-            }), {
-                headers: { "Content-Type": "application/json" }
+            return new Response(assetResponse.body, {
+                status: assetResponse.status,
+                statusText: assetResponse.statusText,
+                headers: headers
             });
         }
 
-        // הגשת קבצים סטטיים (index.html וכו')
-        if (env.ASSETS) {
-            return env.ASSETS.fetch(request);
-        }
-
-        return new Response("Not Found", { status: 404 });
+        return new Response("Not Found", { status: 404, headers: SECURITY_HEADERS });
     }
 };

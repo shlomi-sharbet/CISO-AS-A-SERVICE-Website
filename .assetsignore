@@ -1,12 +1,9 @@
 _worker.js
-create-secrets.js
-inject-env.js
-.secrets*
-wrangler.json
-wrangler.jsonc
+wrangler.json*
 wrangler.toml
 .git*
-README*
-functions/
+.secrets*
 .dev.vars
 .env*
+README*
+*.md
