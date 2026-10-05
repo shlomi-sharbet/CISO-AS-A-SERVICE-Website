@@ -85,6 +85,56 @@ export default {
                     });
                 }
 
+                if (data.role && (typeof data.role !== "string" || data.role.length > 100)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שדה תפקיד אינו תקין או ארוך מדי."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (data.employees && (typeof data.employees !== "string" || data.employees.length > 50)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שדה מספר עובדים אינו תקין."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (data.country && (typeof data.country !== "string" || data.country.length > 100)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שדה מדינה אינו תקין."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (data.service && (typeof data.service !== "string" || data.service.length > 100)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שדה שירות מבוקש אינו תקין."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
+                if (data.timeline && (typeof data.timeline !== "string" || data.timeline.length > 100)) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שדה מועד התחלה אינו תקין."
+                    }), {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
+
                 if (data.message && (typeof data.message !== "string" || data.message.length > 3000)) {
                     return new Response(JSON.stringify({
                         success: false,
@@ -195,8 +245,8 @@ export default {
                 const payload = {
                     ...cleanPayload,
                     access_key: accessKey,
-                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? data.subject : "פנייה חדשה מאתר CISO as a Service",
-                    from_name: "CISO Website"
+                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? data.subject : "פנייה חדשה מאתר Cyber Path",
+                    from_name: "Cyber Path"
                 };
 
                 // שליחה לשרת של Web3Forms
