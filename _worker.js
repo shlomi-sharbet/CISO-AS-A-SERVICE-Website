@@ -153,10 +153,17 @@ export default {
                         if (!r.ok) throw new Error(`siteverify returned HTTP ${r.status}`);
                         const result = await r.json();
 
+                        const requestHost = (request.headers.get("host") || url.hostname || "").split(":")[0].toLowerCase();
+                        const isHostnameValid = !result.hostname || 
+                            expectedHostnames.size === 0 || 
+                            expectedHostnames.has(result.hostname) || 
+                            result.hostname === requestHost || 
+                            [...expectedHostnames].some(h => result.hostname.endsWith("." + h) || h.endsWith("." + result.hostname));
+
                         if (
                             !result.success ||
                             (result.action && result.action !== expectedAction) ||
-                            (result.hostname && expectedHostnames.size > 0 && !expectedHostnames.has(result.hostname))
+                            !isHostnameValid
                         ) {
                             return new Response(JSON.stringify({
                                 success: false,
