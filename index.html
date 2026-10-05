@@ -7,6 +7,8 @@
     <title>CISO as a Service | שירותי מנהל אבטחת מידע למפעלים ועסקים</title>
     <meta name="description"
         content="שירותי מנהל אבטחת מידע כשירות (Fractional CISO) למפעלים, חברות תעשייה ועסקים קטנים ובינוניים. עמידה בתקנים, מענה לשאלוני אבטחה והגנה על רצפת הייצור.">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; img-src 'self' data: https:;">
 
     <!-- גופן עברי מודרני - Heebo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -624,33 +626,38 @@
             </div>
 
             <div class="contact-wrapper">
-                <!-- שליחת הטופס דרך Cloudflare Pages Function (/api/contact) בצורה מאובטחת -->
+                <!-- שליחת הטופס דרך Cloudflare Worker (/api/contact) בצורה מאובטחת -->
                 <form id="contactForm" action="/api/contact" method="POST">
                     <input type="hidden" name="subject" value="פנייה חדשה מאתר CISO as a Service">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    
+                    <!-- מלכודת בוטים מוסווית (Honeypot) - נסתרת לחלוטין ממשתמשים ומקוראי מסך -->
+                    <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; pointer-events: none;" aria-hidden="true">
+                        <label for="botcheck_input">שדה נסתר - אין למלא</label>
+                        <input type="checkbox" id="botcheck_input" name="botcheck" tabindex="-1" autocomplete="off">
+                    </div>
 
                     <div class="form-group">
                         <label for="name">שם מלא *</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="ישראל ישראלי"
-                            required>
+                            maxlength="100" required>
                     </div>
 
                     <div class="form-group">
                         <label for="company">שם החברה / המפעל *</label>
                         <input type="text" id="company" name="company" class="form-control" placeholder="שם הארגון"
-                            required>
+                            maxlength="100" required>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">מספר טלפון *</label>
                         <input type="tel" id="phone" name="phone" class="form-control" placeholder="050-0000000"
-                            required>
+                            maxlength="30" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">דוא״ל (Email) *</label>
                         <input type="email" id="email" name="email" class="form-control"
-                            placeholder="name@company.co.il" required>
+                            placeholder="name@company.co.il" maxlength="100" required>
                     </div>
 
                     <div class="form-group">
@@ -668,7 +675,7 @@
                     <div class="form-group">
                         <label for="message">הודעה או הערות נוספות</label>
                         <textarea id="message" name="message" class="form-control"
-                            placeholder="ספר בקצרה על האתגר או הדרישה שקיבלתם..."></textarea>
+                            maxlength="2000" placeholder="ספר בקצרה על האתגר או הדרישה שקיבלתם..."></textarea>
                     </div>
 
                     <!-- אימות Cloudflare Turnstile (1-Click / אימות חלק) -->
@@ -677,7 +684,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">שליחת פנייה לשיחת ייעוץ</button>
-                    <div id="form-status"></div>
+                    <div id="form-status" style="margin-top: 14px; text-align: center; font-weight: 500;"></div>
                 </form>
             </div>
         </div>
@@ -693,10 +700,15 @@
     <!-- סקריפט Cloudflare Turnstile הרשמי -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-    <!-- סקריפט שליחת הטופס ללא רענון עמוד (AJAX) -->
+    <!-- סקריפט שליחת הטופס ללא רענון עמוד (AJAX) עם הגנת XSS ב-DOM -->
     <script>
         const form = document.getElementById('contactForm');
         const statusDiv = document.getElementById('form-status');
+
+        function updateStatus(message, color) {
+            statusDiv.textContent = message;
+            statusDiv.style.color = color;
+        }
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -704,11 +716,11 @@
             // אימות Turnstile (מוודא שהמשתמש השלים את האימות)
             const turnstileResponse = form.querySelector('[name="cf-turnstile-response"]');
             if (turnstileResponse && !turnstileResponse.value) {
-                statusDiv.innerHTML = '<span style="color: #ef4444;">אנא אשרו את תיבת האימות של Cloudflare Turnstile.</span>';
+                updateStatus('אנא אשרו את תיבת האימות של Cloudflare Turnstile.', '#ef4444');
                 return;
             }
 
-            statusDiv.innerHTML = '<span style="color: var(--primary-light);">שולח פנייה...</span>';
+            updateStatus('שולח פנייה...', 'var(--primary-light)');
 
             const formData = new FormData(form);
             const object = Object.fromEntries(formData);
@@ -727,25 +739,23 @@
                     try {
                         jsonResponse = await response.json();
                     } catch (parseError) {
-                        throw new Error(`שרת לא החזיר תגובה תקינה (סטטוס ${response.status})`);
+                        throw new Error('שרת לא החזיר תגובה תקינה');
                     }
 
                     if (response.status === 200 && jsonResponse.success) {
-                        statusDiv.innerHTML = '<span style="color: var(--accent);">הפנייה התקבלה בהצלחה! ניצור איתך קשר בהקדם.</span>';
+                        updateStatus('הפנייה התקבלה בהצלחה! ניצור איתך קשר בהקדם.', 'var(--accent)');
                         form.reset();
-                        if (typeof turnstile !== 'undefined') {
-                            turnstile.reset();
-                        }
                     } else {
-                        statusDiv.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message || 'אירעה שגיאה בשליחה. אנא נסה שוב או פנה ישירות.'}</span>`;
-                        if (typeof turnstile !== 'undefined') {
-                            turnstile.reset();
-                        }
+                        updateStatus(jsonResponse.message || 'אירעה שגיאה בשליחה. אנא נסה שוב או פנה ישירות.', '#ef4444');
+                    }
+
+                    if (typeof turnstile !== 'undefined') {
+                        turnstile.reset();
                     }
                 })
                 .catch(error => {
                     console.error("Submission error:", error);
-                    statusDiv.innerHTML = `<span style="color: #ef4444;">אירעה שגיאה בשליחה: ${error.message || 'אנא נסה שנית.'}</span>`;
+                    updateStatus('אירעה שגיאה בעת שליחת הטופס. אנא נסה שנית.', '#ef4444');
                     if (typeof turnstile !== 'undefined') {
                         turnstile.reset();
                     }
