@@ -1,5 +1,4 @@
 _worker.js
-create-secrets.js
 wrangler.json*
 wrangler.toml
 .git*
