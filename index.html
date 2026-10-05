@@ -1317,7 +1317,7 @@
             background: #0d172b;
             border: 1px solid var(--border-highlight);
             border-radius: var(--radius-md);
-            max-width: 650px;
+            max-width: 740px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
@@ -1342,6 +1342,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
         }
 
         body.lang-en .modal-close-btn {
@@ -1354,12 +1360,69 @@
             font-weight: 800;
             color: var(--text-heading);
             margin-bottom: 16px;
+            line-height: 1.35;
         }
 
         .modal-box p {
             font-size: 0.93rem;
             line-height: 1.65;
             margin-bottom: 14px;
+        }
+
+        .insight-lead {
+            font-size: 0.96rem;
+            color: var(--text-body);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .insight-steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .insight-steps-list li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-body);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .insight-steps-list li:hover {
+            background: rgba(6, 182, 212, 0.06);
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+
+        .insight-steps-list li strong {
+            color: var(--cyan);
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.93rem;
+        }
+
+        .insight-conclusion-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.55;
+            margin-bottom: 24px;
+        }
+
+        .insight-conclusion-box strong {
+            color: var(--emerald);
         }
 
         /* כפתור מובייל צף */
@@ -1988,14 +2051,14 @@
                     </p>
 
                     <div class="about-competencies-grid">
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>אסטרטגיית IT וסייבר</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>ISO 27001 ותאימות</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>BCP, DR ותרגילי חירום</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>Microsoft 365, Defender & Entra</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>Firewall, XDR והפרדות רשת</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>Intune, MAM ו-ManageEngine</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>מערכות ERP ותהליכים עסקיים</span></div>
-                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span>ניהול ספקים, רישוי ותקציבי IT</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_1">אסטרטגיית IT וסייבר</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_2">ISO 27001 ותאימות</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_3">BCP, DR ותרגילי חירום</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_4">Microsoft 365, Defender & Entra</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_5">Firewall, XDR והפרדות רשת</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_6">Intune, MAM ו-ManageEngine</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_7">מערכות ERP ותהליכים עסקיים</span></div>
+                        <div class="comp-item"><svg viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg> <span data-i18n="comp_8">ניהול ספקים, רישוי ותקציבי IT</span></div>
                     </div>
 
                     <a href="#contact" class="btn btn-primary" data-i18n="cta_schedule">לתיאום שיחת היכרות</a>
@@ -2094,7 +2157,7 @@
                 <!-- Package 1 -->
                 <div class="package-card">
                     <div>
-                        <div class="package-tag">פרויקט כניסה ממוקד</div>
+                        <div class="package-tag" data-i18n="pkg_t1">פרויקט כניסה ממוקד</div>
                         <h3 data-i18n="p1_title">Cyber Assessment</h3>
                         <p class="pkg-desc" data-i18n="p1_desc">
                             פרויקט כניסה ממוקד הכולל הערכת מצב כוללת, סקר פערים ותוכנית עבודה מעשית מדורגת לטיפול.
@@ -2109,7 +2172,7 @@
                 <!-- Package 2 -->
                 <div class="package-card">
                     <div>
-                        <div class="package-tag">תאימות ותקנים</div>
+                        <div class="package-tag" data-i18n="pkg_t2">תאימות ותקנים</div>
                         <h3 data-i18n="p2_title">Compliance Readiness</h3>
                         <p class="pkg-desc" data-i18n="p2_desc">
                             פרויקט היערכות מובנה למסגרת תאימות (כגון ISO 27001), מענה לשאלוני ביקורת ספקים ודרישות אבטחה חוזיות.
@@ -2124,7 +2187,7 @@
                 <!-- Package 3 -->
                 <div class="package-card highlight">
                     <div>
-                        <div class="package-tag">הנהגת סייבר שוטפת</div>
+                        <div class="package-tag" data-i18n="pkg_t3">הנהגת סייבר שוטפת</div>
                         <h3 data-i18n="p3_title">Fractional CISO</h3>
                         <p class="pkg-desc" data-i18n="p3_desc">
                             ליווי חודשי מתמשך הכולל הובלת ממשל סייבר, ניהול סיכונים, מדיניות, דיווחים להנהלה ובקרה שוטפת.
@@ -2139,7 +2202,7 @@
                 <!-- Package 4 -->
                 <div class="package-card highlight">
                     <div>
-                        <div class="package-tag">הנהגה טכנולוגית משולבת</div>
+                        <div class="package-tag" data-i18n="pkg_t4">הנהגה טכנולוגית משולבת</div>
                         <h3 data-i18n="p4_title">Fractional CIO & CISO</h3>
                         <p class="pkg-desc" data-i18n="p4_desc">
                             שילוב של הנהגת IT, אסטרטגיה טכנולוגית, סייבר, ניהול ספקים, תקציבים ותאימות במודל אחד אחוד.
@@ -2154,7 +2217,7 @@
                 <!-- Package 5 -->
                 <div class="package-card">
                     <div>
-                        <div class="package-tag">חוסן והמשכיות</div>
+                        <div class="package-tag" data-i18n="pkg_t5">חוסן והמשכיות</div>
                         <h3 data-i18n="p5_title">BCP & Resilience Program</h3>
                         <p class="pkg-desc" data-i18n="p5_desc">
                             פרויקט ייעודי לבניית תוכנית המשכיות עסקית (BCP), תוכנית התאוששות מאסון (DR) ותרגול הנהלה חי.
@@ -2183,7 +2246,7 @@
             <div class="insights-grid">
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">מנהיגות סייבר</div>
+                        <div class="insight-tag" data-i18n="in1_tag">מנהיגות סייבר</div>
                         <h3 data-i18n="in1_title">האם הארגון שלכם זקוק ל־CISO במשרה מלאה או ל־Fractional CISO?</h3>
                         <p data-i18n="in1_desc">כיצד לבחור את מודל ההנהגה המתאים בהתאם לגודל הארגון, מורכבות הסביבה והתקציב.</p>
                     </div>
@@ -2195,7 +2258,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">תקנים ותאימות</div>
+                        <div class="insight-tag" data-i18n="in2_tag">תקנים ותאימות</div>
                         <h3 data-i18n="in2_title">עשרה סימנים שהארגון אינו מוכן לביקורת ISO 27001</h3>
                         <p data-i18n="in2_desc">הפערים הנפוצים ביותר שגורמים לעיכובים במעבר ביקורת ההסמכה ואיך להימנע מהם מראש.</p>
                     </div>
@@ -2207,7 +2270,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">המשכיות עסקית</div>
+                        <div class="insight-tag" data-i18n="in3_tag">המשכיות עסקית</div>
                         <h3 data-i18n="in3_title">BCP מול DR: מה ההבדל ומה הארגון שלכם באמת צריך?</h3>
                         <p data-i18n="in3_desc">מדוע גיבוי שרתים אינו תחליף לתוכנית המשכיות עסקית וכיצד לגבש תוכנית עבודה אפקטיבית.</p>
                     </div>
@@ -2219,7 +2282,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">Microsoft 365</div>
+                        <div class="insight-tag" data-i18n="in4_tag">Microsoft 365</div>
                         <h3 data-i18n="in4_title">בדיקת אבטחה בסיסית ל־Microsoft 365 שכל הנהלה חייבת להכיר</h3>
                         <p data-i18n="in4_desc">עשר נקודות תצורה קריטיות ב־Entra ID, Exchange Online ו־Defender שמסוכנות בהגדרת ברירת מחדל.</p>
                     </div>
@@ -2231,7 +2294,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">ניהול ודירקטוריון</div>
+                        <div class="insight-tag" data-i18n="in5_tag">ניהול ודירקטוריון</div>
                         <h3 data-i18n="in5_title">כיצד להציג סיכוני סייבר להנהלה ולדירקטוריון</h3>
                         <p data-i18n="in5_desc">מעבר מטרמינולוגיה טכנית מבלבלת למדדים עסקיים של השפעה כספית, חשיפה משפטית ותעדוף השקעות.</p>
                     </div>
@@ -2243,7 +2306,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">אבטחת זהויות</div>
+                        <div class="insight-tag" data-i18n="in6_tag">אבטחת זהויות</div>
                         <h3 data-i18n="in6_title">טעויות נפוצות ב־MFA וב־Conditional Access</h3>
                         <p data-i18n="in6_desc">למה אימות רב-שלבי בסיסי אינו מספיק ואיך לבנות מדיניות גישה מותנית המונעת מתקפות עקיפה.</p>
                     </div>
@@ -2255,7 +2318,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">ניהול ספקים</div>
+                        <div class="insight-tag" data-i18n="in7_tag">ניהול ספקים</div>
                         <h3 data-i18n="in7_title">כיצד לנהל ספק IT או MSP באופן אפקטיבי</h3>
                         <p data-i18n="in7_desc">איך לייצר בקרה אובייקטיבית ולוודא שספק המחשוב מגן על האינטרס העסקי והאבטחתי שלכם.</p>
                     </div>
@@ -2267,7 +2330,7 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">טכנולוגיית סייבר</div>
+                        <div class="insight-tag" data-i18n="in8_tag">טכנולוגיית סייבר</div>
                         <h3 data-i18n="in8_title">מדוע רכישת XDR אינה מחליפה תוכנית סייבר</h3>
                         <p data-i18n="in8_desc">רכישת מוצר מתקדם ללא תהליכי תגובה, ניהול אירועים והקשחת תצורות מייצרת אשליית ביטחון בלבד.</p>
                     </div>
@@ -2279,12 +2342,24 @@
 
                 <div class="insight-card">
                     <div>
-                        <div class="insight-tag">בינה מלאכותית וממשל</div>
+                        <div class="insight-tag" data-i18n="in9_tag">בינה מלאכותית וממשל</div>
                         <h3 data-i18n="in9_title">Copilot ו-AI בארגון: ממשל, הרשאות והגנת מידע</h3>
                         <p data-i18n="in9_desc">מה נדרש לבדוק לפני שמפעילים כלי AI ארגוניים כדי למנוע זליגת מידע רגיש וסודות מסחריים.</p>
                     </div>
                     <div class="insight-footer">
                         <span class="read-more-link" onclick="openInsightModal(9)" data-i18n="cta_read_more">קרא תקציר ←</span>
+                        <a href="#contact" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" data-i18n="cta_insight_action">לשיחת הערכה</a>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <div>
+                        <div class="insight-tag" data-i18n="in10_tag">מגזר יצרני ותעשייה</div>
+                        <h3 data-i18n="in10_title">המשכיות עסקית בארגון יצרני: נקודות הכשל הנפוצות</h3>
+                        <p data-i18n="in10_desc">הפערים הקריטיים בין רצפת הייצור ל-IT, שרשרת אספקה פגיעה וכיצד בונים תוכנית המשכיות אמיתית למפעל.</p>
+                    </div>
+                    <div class="insight-footer">
+                        <span class="read-more-link" onclick="openInsightModal(10)" data-i18n="cta_read_more">קרא תקציר ←</span>
                         <a href="#contact" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" data-i18n="cta_insight_action">לשיחת הערכה</a>
                     </div>
                 </div>
@@ -2530,7 +2605,7 @@
             </div>
 
             <div class="footer-bottom">
-                <div>
+                <div data-i18n="footer_rights">
                     © 2026 Cyber Path. כל הזכויות שמורות. שירותי CIO & CISO חיצוניים, תאימות והמשכיות עסקית.
                 </div>
                 <div>
@@ -2726,6 +2801,14 @@
                 about_lead: "Cyber Path הוקמה במטרה להעניק לארגונים גישה ליכולות CIO ו־CISO בכירות, מעשיות וגמישות.",
                 about_p1: "את הפעילות המקצועית מוביל <strong>רובי פז</strong>, מנהל CIO ו־CISO בעל ניסיון עשיר בניהול אבטחת מידע, תשתיות, מערכות ארגוניות, המשכיות עסקית ותאימות בסביבה גלובלית ויצרנית.",
                 about_p2: "Cyber Path אינה מסתפקת בהמלצות תיאורטיות כלליות. כל פעילות נועדה להפיק סדרי עדיפויות חדים, אחריות ארגונית ברורה ותוכנית יישום הניתנת למדידה ולבקרה עסקית.",
+                comp_1: "אסטרטגיית IT וסייבר",
+                comp_2: "ISO 27001 ותאימות",
+                comp_3: "BCP, DR ותרגילי חירום",
+                comp_4: "Microsoft 365, Defender & Entra",
+                comp_5: "Firewall, XDR והפרדות רשת",
+                comp_6: "Intune, MAM ו-ManageEngine",
+                comp_7: "מערכות ERP ותהליכים עסקיים",
+                comp_8: "ניהול ספקים, רישוי ותקציבי IT",
                 profile_name: "רובי פז",
                 profile_role: "CIO & CISO | מומחה סייבר והמשכיות עסקית",
                 profile_bio: "הובלת אבטחת מידע, תשתיות גלובליות, תאימות תקנים ומערכות מידע קריטיות בארגונים תעשייתיים ומרובי אתרים.",
@@ -2753,6 +2836,11 @@
                 pkg_tag: "מודלי התקשרות גמישים",
                 pkg_title: "חבילות שירות בהתאמה מדויקת לצורכי הארגון",
                 pkg_subtitle: "ללא התחייבויות כובלות, ללא עלויות מעסיק מיותרות – משלמים רק על הערך המקצועי שאתם מקבלים",
+                pkg_t1: "פרויקט כניסה ממוקד",
+                pkg_t2: "תאימות ותקנים",
+                pkg_t3: "הנהגת סייבר שוטפת",
+                pkg_t4: "הנהגה טכנולוגית משולבת",
+                pkg_t5: "חוסן והמשכיות",
                 p1_title: "Cyber Assessment",
                 p1_desc: "פרויקט כניסה ממוקד הכולל הערכת מצב כוללת, סקר פערים ותוכנית עבודה מעשית מדורגת לטיפול.",
                 p1_target: "ארגון שרוצה להבין איפה הוא עומד כיום ובמה לטפל קודם.",
@@ -2775,6 +2863,36 @@
                 ins_subtitle: "מדריכים מעשיים ממוקדים בבעיות אמיתיות שמעסיקות מנכ\"לים, סמנכ\"לים ומנהלי IT",
                 cta_read_more: "קרא תקציר ←",
                 cta_insight_action: "לשיחת הערכה",
+                in1_tag: "מנהיגות סייבר",
+                in1_title: "האם הארגון שלכם זקוק ל־CISO במשרה מלאה או ל־Fractional CISO?",
+                in1_desc: "כיצד לבחור את מודל ההנהגה המתאים בהתאם לגודל הארגון, מורכבות הסביבה והתקציב.",
+                in2_tag: "תקנים ותאימות",
+                in2_title: "עשרה סימנים שהארגון אינו מוכן לביקורת ISO 27001",
+                in2_desc: "הפערים הנפוצים ביותר שגורמים לעיכובים במעבר ביקורת ההסמכה ואיך להימנע מהם מראש.",
+                in3_tag: "המשכיות עסקית",
+                in3_title: "BCP מול DR: מה ההבדל ומה הארגון שלכם באמת צריך?",
+                in3_desc: "מדוע גיבוי שרתים אינו תחליף לתוכנית המשכיות עסקית וכיצד לגבש תוכנית עבודה אפקטיבית.",
+                in4_tag: "Microsoft 365",
+                in4_title: "בדיקת אבטחה בסיסית ל־Microsoft 365 שכל הנהלה חייבת להכיר",
+                in4_desc: "עשר נקודות תצורה קריטיות ב־Entra ID, Exchange Online ו־Defender שמסוכנות בהגדרת ברירת מחדל.",
+                in5_tag: "ניהול ודירקטוריון",
+                in5_title: "כיצד להציג סיכוני סייבר להנהלה ולדירקטוריון",
+                in5_desc: "מעבר מטרמינולוגיה טכנית מבלבלת למדדים עסקיים של השפעה כספית, חשיפה משפטית ותעדוף השקעות.",
+                in6_tag: "אבטחת זהויות",
+                in6_title: "טעויות נפוצות ב־MFA וב־Conditional Access",
+                in6_desc: "למה אימות רב-שלבי בסיסי אינו מספיק ואיך לבנות מדיניות גישה מותנית המונעת מתקפות עקיפה.",
+                in7_tag: "ניהול ספקים",
+                in7_title: "כיצד לנהל ספק IT או MSP באופן אפקטיבי",
+                in7_desc: "איך לייצר בקרה אובייקטיבית ולוודא שספק המחשוב מגן על האינטרס העסקי והאבטחתי שלכם.",
+                in8_tag: "טכנולוגיית סייבר",
+                in8_title: "מדוע רכישת XDR אינה מחליפה תוכנית סייבר",
+                in8_desc: "רכישת מוצר מתקדם ללא תהליכי תגובה, ניהול אירועים והקשחת תצורות מייצרת אשליית ביטחון בלבד.",
+                in9_tag: "בינה מלאכותית וממשל",
+                in9_title: "Copilot ו-AI בארגון: ממשל, הרשאות והגנת מידע",
+                in9_desc: "מה נדרש לבדוק לפני שמפעילים כלי AI ארגוניים כדי למנוע זליגת מידע רגיש וסודות מסחריים.",
+                in10_tag: "מגזר יצרני ותעשייה",
+                in10_title: "המשכיות עסקית בארגון יצרני: נקודות הכשל הנפוצות",
+                in10_desc: "הפערים הקריטיים בין רצפת הייצור ל-IT, שרשרת אספקה פגיעה וכיצד בונים תוכנית המשכיות אמיתית למפעל.",
                 faq_tag: "שאלות ותשובות",
                 faq_title: "שאלות נפוצות על השירות",
                 faq_subtitle: "כל מה שחשוב לדעת על מודל הפעילות, חלוקת האחריות ושיטת העבודה המשותפת",
@@ -2809,7 +2927,8 @@
                 f_links_nav: "ניווט מהיר",
                 nav_privacy: "מדיניות פרטיות",
                 f_contact_title: "יצירת קשר",
-                f_contact_desc: "השאירו פרטים ונחזור אליכם בהקדם לבדיקת התאמה ולתיאום שיחה ללא התחייבות."
+                f_contact_desc: "השאירו פרטים ונחזור אליכם בהקדם לבדיקת התאמה ולתיאום שיחה ללא התחייבות.",
+                footer_rights: "© 2026 Cyber Path. כל הזכויות שמורות. שירותי CIO & CISO חיצוניים, תאימות והמשכיות עסקית."
             },
             en: {
                 pageTitle: "Cyber Path | Cybersecurity, Compliance & Technology Leadership (Fractional CIO & CISO)",
@@ -2949,6 +3068,14 @@
                 about_lead: "Cyber Path was established to give organizations flexible access to senior, practical CIO and CISO capabilities.",
                 about_p1: "The professional practice is led by <strong>Rubi Paz</strong>, an experienced CIO and CISO with hands-on leadership across cybersecurity, infrastructure, enterprise systems, business continuity, and compliance in global manufacturing environments.",
                 about_p2: "Cyber Path goes beyond theoretical advice. Every engagement is designed to produce clear priorities, accountable ownership, and measurable implementation plans.",
+                comp_1: "IT & Cyber Strategy",
+                comp_2: "ISO 27001 & Compliance",
+                comp_3: "BCP, DR & Crisis Drills",
+                comp_4: "Microsoft 365, Defender & Entra",
+                comp_5: "Firewalls, XDR & Network Zoning",
+                comp_6: "Intune, MAM & ManageEngine",
+                comp_7: "ERP Systems & Business Workflows",
+                comp_8: "Vendor Governance & IT Budgets",
                 profile_name: "Rubi Paz",
                 profile_role: "CIO & CISO | Cyber & Business Continuity Executive",
                 profile_bio: "Hands-on leadership across enterprise cybersecurity, global infrastructure, compliance frameworks, and business continuity in manufacturing environments.",
@@ -2976,6 +3103,11 @@
                 pkg_tag: "Flexible Engagement Models",
                 pkg_title: "Tailored Service Packages for Every Stage",
                 pkg_subtitle: "No rigid lock-in, no redundant executive overhead – pay solely for high-impact professional guidance",
+                pkg_t1: "Introductory Assessment",
+                pkg_t2: "Compliance & Audits",
+                pkg_t3: "Ongoing Cyber Leadership",
+                pkg_t4: "Unified Tech Leadership",
+                pkg_t5: "Resilience & Continuity",
                 p1_title: "Cyber Assessment",
                 p1_desc: "A focused introductory engagement providing a comprehensive posture review, gap analysis, and prioritized action roadmap.",
                 p1_target: "Organizations looking to understand their current security baseline and priority fixes.",
@@ -2998,6 +3130,36 @@
                 ins_subtitle: "Practical guides addressing the real-world dilemmas faced by CEOs, CFOs, and IT Directors",
                 cta_read_more: "Read Summary →",
                 cta_insight_action: "Schedule Review",
+                in1_tag: "Cyber Leadership",
+                in1_title: "Does Your Organization Need a Full-Time CISO or a Fractional CISO?",
+                in1_desc: "How to choose the optimal leadership model based on organization size, complexity, and budget.",
+                in2_tag: "Standards & Compliance",
+                in2_title: "Ten Signs Your Organization is Not Ready for an ISO 27001 Audit",
+                in2_desc: "The most common operational gaps that delay certification audits and how to prevent them upfront.",
+                in3_tag: "Business Continuity",
+                in3_title: "BCP vs. DR: Understanding the Difference and What You Really Need",
+                in3_desc: "Why server backups alone are not a business continuity plan and how to build operational resilience.",
+                in4_tag: "Microsoft 365",
+                in4_title: "Essential Microsoft 365 Security Health Check Every Board Should Know",
+                in4_desc: "Critical configuration vulnerabilities in Entra ID, Exchange Online, and Defender left exposed by default.",
+                in5_tag: "Board Governance",
+                in5_title: "How to Present Cyber Risk to Executives and the Board",
+                in5_desc: "Translating technical metrics into business impacts, financial exposure, and strategic prioritization.",
+                in6_tag: "Identity Security",
+                in6_title: "Common Traps in MFA and Conditional Access Policies",
+                in6_desc: "Why basic multi-factor authentication falls short and how to build phishing-resistant conditional access.",
+                in7_tag: "Vendor Management",
+                in7_title: "How to Effectively Manage Your IT Service Provider (MSP)",
+                in7_desc: "Establishing objective governance and verifying your IT provider protects your true business interests.",
+                in8_tag: "Cyber Technology",
+                in8_title: "Why Deploying XDR Does Not Replace a Cybersecurity Program",
+                in8_desc: "Purchasing security tools without incident response workflows creates only an illusion of defense.",
+                in9_tag: "AI Governance",
+                in9_title: "Copilot & Enterprise AI: Governance, Permissions & Data Protection",
+                in9_desc: "What must be audited before deploying enterprise AI tools to prevent sensitive data leakage.",
+                in10_tag: "Industrial & Manufacturing",
+                in10_title: "Business Continuity in Manufacturing: Common Failure Points",
+                in10_desc: "Critical gaps between factory floor OT and enterprise IT, fragile supply chains, and building plant resilience.",
                 faq_tag: "Questions & Answers",
                 faq_title: "Frequently Asked Questions",
                 faq_subtitle: "Everything you need to know about our executive model, collaboration style, and delivery",
@@ -3032,7 +3194,8 @@
                 f_links_nav: "Quick Navigation",
                 nav_privacy: "Privacy Policy",
                 f_contact_title: "Contact",
-                f_contact_desc: "Leave your details and we will reach out promptly to schedule an exploratory discussion."
+                f_contact_desc: "Leave your details and we will reach out promptly to schedule an exploratory discussion.",
+                footer_rights: "© 2026 Cyber Path. All rights reserved. Fractional CIO & CISO, Compliance & Business Continuity."
             }
         };
 
@@ -3047,8 +3210,34 @@
             2: {
                 title_he: "עשרה סימנים שהארגון אינו מוכן לביקורת ISO 27001",
                 title_en: "Ten Signs Your Organization is Not Ready for an ISO 27001 Audit",
-                body_he: "הטעויות הנפוצות ביותר לקראת ביקורת ISO 27001 כוללות: היעדר נהלים חתומים, חוסר בתיעוד סקר סיכונים תקופתי, היעדר בקרות ספקים מתועדות, גיבויים שלא נוסו בפועל, וחוסר הדרכת עובדים מתועדת. תהליך היערכות נכון מזהה ומטפל בפערים אלו חודשים לפני הגעת גוף ההסמכה החיצוני ומבטיח מעבר חלק ונטול חרדות.",
-                body_en: "Common pitfalls before an ISO 27001 audit include unapproved policies, outdated risk assessments, unverified supplier controls, untested data restorations, and lack of employee awareness logs. A disciplined readiness process identifies and resolves these gaps well before the external auditor arrives."
+                body_he: `<p class="insight-lead">היערכות לביקורת הסמכה לתקן ISO/IEC 27001 היא תהליך חוצה-ארגון הדורש הוכחות מעשיות ליישום בקרות ולא רק מסמכים תיאורטיים. להלן עשרת הסימנים המובהקים המעידים על כך שהארגון עדיין אינו ערוך למבדק ההסמכה החיצוני:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. נהלים ומדיניות ללא תוקף או אישור הנהלה:</strong> מסמכי מדיניות שהועתקו מתבניות, אינם מעודכנים, או שמעולם לא הוצגו, אושרו ונחתמו רשמית על ידי הנהלת הארגון.</li>
+    <li><strong>2. סקר סיכונים (Risk Assessment) לא עדכני וללא תוכנית טיפול (RTP):</strong> היעדר מתודולוגיה סדורה להערכת סיכונים, אי-מיפוי נכסי מידע קריטיים, או חוסר בתוכנית מוגדרת עם תאריכים ואחראים לטיפול בסיכונים שזוהו.</li>
+    <li><strong>3. הצהרת יישומיות (SoA - Statement of Applicability) חסרה או לקויה:</strong> אי-מיפוי של כל 93 הבקרות בנספח Annex A, היעדר נימוק ברור להחרגת בקרות שאינן רלוונטיות, ואי-ציון סטטוס היישום של כל בקרה.</li>
+    <li><strong>4. גיבויים שלא נוסו בשחזור בפועל (Restore Tests):</strong> קיומם של גיבויים אוטומטיים מבלי שבוצעו ותועדו בדיקות שחזור תקופתיות יזומות המוכיחות שניתן להחזיר את המידע והמערכות לפעולה בזמן אמת.</li>
+    <li><strong>5. היעדר בקרות וניהול סיכוני ספקים חיצוניים (Third-Party Risk):</strong> עבודה שוטפת מול ספקי ענן, IT ומיקור חוץ ללא הסכמי סודיות (NDA), הסכמי רמת שירות (SLA), שאלוני אבטחה תקופתיים ובקרת הרשאות גישה.</li>
+    <li><strong>6. חוסר בתיעוד הדרכות מודעות אבטחת מידע לעובדים:</strong> אי-ביצוע הדרכות שוטפות לעובדים חדשים וקיימים, היעדר רישומי נוכחות, ואי-ביצוע מבדקי דיוג (פישינג) תקופתיים להערכת המודעות הארגונית.</li>
+    <li><strong>7. ניהול זהויות והרשאות רופף (Access Control):</strong> חשבונות של עובדים וספקים שעזבו אשר נותרו פעילים, היעדר מנגנון סקרי הרשאות תקופתיים, ואי-אכיפת עקרון המידור וההרשאה המינימלית (Least Privilege).</li>
+    <li><strong>8. תוכנית תגובה לאירועי סייבר (Incident Response Plan) שלא תורגלה:</strong> חוסר בנוהל ברור לסיווג, טיפול ודיווח על אירועי אבטחה, וצוות שלא תרגל מעולם תרחיש תגובה לאירוע כופרה או דליפת מידע.</li>
+    <li><strong>9. היעדר ביצוע מבדק פנימי (Internal Audit) מקדים:</strong> אי-ביצוע מבדק פנימי מקיף, שהינו דרישת סף מפורשת בסעיף 9.2 בתקן ISO 27001 לפני הגעת גוף ההסמכה החיצוני, כולל תיעוד ממצאים ופעולות מתקנות.</li>
+    <li><strong>10. אי-קיום סקר הנהלה (Management Review) רשמי:</strong> היעדר ישיבת הנהלה רשמית ומתועדת (לפי סעיף 9.3 בתקן) הסוקרת את סטטוס מערכת ה-ISMS, תוצאות המבדקים, ביצועי האבטחה והקצאת המשאבים הנדרשים.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>המלצת CISO:</strong> זיהוי פערים אלו חודשים ספורים לפני הגעת גוף ההסמכה החיצוני מאפשר לסגור אותם באופן מתודי ורגוע, ולהבטיח קבלת הסמכה חלקה ללא ממצאי אי-התאמה מהותיים (Major Non-Conformities).</div>`,
+                body_en: `<p class="insight-lead">Preparing for an ISO/IEC 27001 certification audit is an organization-wide endeavor requiring verifiable operational evidence rather than theoretical documentation. Here are the ten definitive warning signs that your organization is not yet prepared for the external auditor:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. Unapproved or Generic Policies:</strong> Security policies downloaded from templates that were never adapted to organizational reality, reviewed, or formally signed off by executive management.</li>
+    <li><strong>2. Outdated Risk Assessment & Missing Risk Treatment Plan (RTP):</strong> Absence of a documented risk methodology, unmapped information assets, or lack of defined owners, timelines, and budgets for remediating identified risks.</li>
+    <li><strong>3. Deficient Statement of Applicability (SoA):</strong> Failure to evaluate all 93 controls in Annex A, missing justifications for excluded controls, or unverified implementation statuses across active controls.</li>
+    <li><strong>4. Untested Data Backups (No Documented Restorations):</strong> Automated backups running without documented, periodic restore drills proving that critical databases and systems can actually be recovered within RTO/RPO objectives.</li>
+    <li><strong>5. Unmanaged Third-Party and Supplier Risks:</strong> Engaging cloud vendors, MSPs, and subcontractors without executed NDAs, security questionnaires, defined SLAs, or monitored privileged access controls.</li>
+    <li><strong>6. Lack of Verifiable Employee Awareness Training:</strong> Missing records of cybersecurity training for onboarding and existing staff, lack of phishing simulation metrics, and zero audit logs proving workforce compliance.</li>
+    <li><strong>7. Loose Identity & Access Management (Privilege Creep):</strong> Active credentials belonging to departed employees or inactive contractors, lack of periodic access reviews, and absence of least-privilege enforcement.</li>
+    <li><strong>8. Untested Incident Response Plan (IRP):</strong> No formalized procedure for categorizing, escalating, and reporting security incidents, and no evidence of tabletop exercises preparing teams for ransomware or breaches.</li>
+    <li><strong>9. Failure to Conduct an Internal Audit:</strong> ISO 27001 Clause 9.2 explicitly mandates a comprehensive internal audit of the ISMS prior to Stage 2 external certification. Skipping this guarantees non-conformity findings.</li>
+    <li><strong>10. Absence of a Formal Management Review Meeting:</strong> Lack of documented executive management review (Clause 9.3) evaluating ISMS performance, audit results, security metrics, and resource allocation.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>Executive Recommendation:</strong> Identifying and resolving these gaps several months prior to external audit visits prevents costly delays, eliminates major non-conformities, and delivers a stress-free certification pass.</div>`
             },
             3: {
                 title_he: "BCP מול DR: מה ההבדל ומה הארגון באמת צריך?",
@@ -3059,8 +3248,24 @@
             4: {
                 title_he: "בדיקת אבטחה בסיסית ל־Microsoft 365",
                 title_en: "Essential Microsoft 365 Security Health Check",
-                body_he: "סביבות ברירת מחדל ב-Microsoft 365 משאירות לעיתים קרובות הרשאות יתר, פרוטוקולי Legacy פתוחים ואימות דו-שלבי חלקי. סקירה מעשית של תצורת Entra ID, הגדרת Conditional Access מוקפדת והפעלת בקרות Defender מונעות מעל 90% מניסיונות ההשתלטות על תיבות דוא\"ל ארגוניות.",
-                body_en: "Default configurations in Microsoft 365 often leave legacy authentication open and multi-factor authentication inconsistently enforced. A pragmatic review of Entra ID Conditional Access policies and Defender endpoint telemetry eliminates over 90% of account takeover vectors."
+                body_he: `<p class="insight-lead">סביבות ברירת מחדל ב-Microsoft 365 משאירות לעיתים קרובות הרשאות יתר, פרוטוקולי Legacy פתוחים ואימות דו-שלבי חלקי. להלן בדיקות הליבה שכל הנהלה וצוות IT חייבים לבצע:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. אכיפת אימות רב-שלבי (MFA) עמיד לפישינג:</strong> מעבר מאימות SMS פגיע ל-Authenticator או FIDO2 עם Number Matching.</li>
+    <li><strong>2. חסימת פרוטוקולי אימות ישנים (Legacy Auth):</strong> ביטול POP3, IMAP ו-SMTP AUTH המאפשרים עקיפת MFA.</li>
+    <li><strong>3. הקשחת מדיניות גישה מותנית (Conditional Access):</strong> הגבלת גישה ממדינות זרות (Geo-blocking) ודרישת מכשיר מנוהל ותואם (Compliant Device).</li>
+    <li><strong>4. הפעלת יומני ביקורת מורחבים (Unified Audit Log):</strong> וידוא שהלוגים נשמרים למשך שנה לפחות לצורך תחקור אירועי סייבר.</li>
+    <li><strong>5. הגבלת שיתוף קבצים חיצוני ב-SharePoint ו-OneDrive:</strong> חסימת קישורים פתוחים לכלל הציבור (Anyone Links) ללא תפוגה ואימות.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>המלצת CISO:</strong> סקירה מעשית של תצורת Entra ID, הגדרת Conditional Access מוקפדת והפעלת בקרות Defender מונעות מעל 90% מניסיונות ההשתלטות על תיבות דוא"ל ארגוניות.</div>`,
+                body_en: `<p class="insight-lead">Default configurations in Microsoft 365 often leave legacy authentication open and multi-factor authentication inconsistently enforced. Here are the core baseline checks every executive and IT team must review:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. Phishing-Resistant MFA Enforcement:</strong> Migrating away from vulnerable SMS codes to Microsoft Authenticator or FIDO2 keys with number matching.</li>
+    <li><strong>2. Blocking Legacy Authentication Protocols:</strong> Disabling legacy POP3, IMAP, and Basic SMTP protocols that bypass multi-factor authentication.</li>
+    <li><strong>3. Hardened Conditional Access Policies:</strong> Implementing geographical restrictions (Geo-blocking) and requiring compliant, managed endpoints for corporate data access.</li>
+    <li><strong>4. Comprehensive Audit Logging:</strong> Ensuring Unified Audit Logging (UAL) is enabled with appropriate retention for forensic incident investigations.</li>
+    <li><strong>5. External Sharing Governance:</strong> Restricting anonymous external sharing links across SharePoint and OneDrive to prevent uncontrolled data leakage.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>Executive Recommendation:</strong> A disciplined configuration review of Entra ID and Microsoft Defender eliminates over 90% of business email compromise (BEC) vectors.</div>`
             },
             5: {
                 title_he: "כיצד להציג סיכוני סייבר להנהלה ולדירקטוריון",
@@ -3091,6 +3296,28 @@
                 title_en: "Copilot & Enterprise AI: Governance, Permissions & Data Protection",
                 body_he: "הטמעת כלי AI ארגוניים ללא בדיקת הרשאות קודמת עלולה לחשוף בפני כל עובד נתוני שכר, מסמכים סודיים ותוכניות עסקיות. אנו בודקים את ממשל המידע וההרשאות ב-SharePoint וב-OneDrive לפני פתיחת היכולות לעובדים.",
                 body_en: "Deploying enterprise AI tools without restricting file permissions can expose sensitive executive salaries, intellectual property, and merger plans to general staff. We audit SharePoint and OneDrive permissions prior to AI rollouts."
+            },
+            10: {
+                title_he: "המשכיות עסקית בארגון יצרני: נקודות הכשל הנפוצות",
+                title_en: "Business Continuity in Manufacturing: Common Failure Points",
+                body_he: `<p class="insight-lead">במפעלים ובארגונים יצרניים, אירוע סייבר או תקלת תשתית אינם מסתכמים באי-נוחות משרדית – הם משביתים קווי ייצור, גורמים להפסדי חומרי גלם של מיליוני שקלים ומסכנים אספקה ללקוחות גלובליים. להלן נקודות הכשל הנפוצות ביותר:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. תלות עיוורת בין רשת ה-IT למערכות ה-OT:</strong> היעדר הפרדת רשתות (Network Segmentation) וחומות אש תעשייתיות בין הסביבה המשרדית למכונות הייצור מאפשר לכופרה להתפשט תוך דקות לרצפת הייצור.</li>
+    <li><strong>2. גיבויי בקרי PLC ומכונות ישנות ללא שחזור בדוק:</strong> מכונות ייצור רבות מופעלות באמצעות מחשבים ישנים או בקרים תעשייתיים שמעולם לא גובו, ותקלה בהם עוצרת קו ייצור שלם למשך שבועות.</li>
+    <li><strong>3. גישה מרחוק לא מאובטחת של ספקי ציוד ומכונות:</strong> ספקי מכונות ורובוטיקה מתחברים מרחוק לצורך תמיכה באמצעות תוכנות שליטה ללא MFA, ללא ניטור וללא מדיניות Zero Trust.</li>
+    <li><strong>4. תוכנית DR טכנולוגית ללא תוכנית BCP תפעולית:</strong> השקעה בשחזור שרתי ה-ERP מבלי להגדיר תהליכי עבודה ידניים חלופיים ברצפת הייצור, במחסנים ובמחלקת המשלוחים בעת השבתה.</li>
+    <li><strong>5. חוסר בהגדרת RTO/RPO לפי עלות השבתה עסקית:</strong> הנהלות רבות אינן יודעות לכמת את עלות השעה של השבתת המפעל, ולכן אינן מתעדפות נכון את תקציבי הגיבוי והשרידות של המערכות הקריטיות.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>המלצת CISO:</strong> תוכנית חוסן יצרנית אפקטיבית משלבת סקר סיכונים ייעודי לסביבות OT, הפרדת רשתות מוחלטת ותרגילי Tabletop המשלבים את מנהלי התפעול, המפעל וה-IT סביב שולחן אחד.</div>`,
+                body_en: `<p class="insight-lead">In manufacturing facilities, cyber incidents and outages do not merely disrupt back-office emails—they halt production lines, spoil raw materials, and trigger contractual supply penalties. Here are the most critical failure points in industrial resilience:</p>
+<ol class="insight-steps-list">
+    <li><strong>1. Direct Connectivity Between IT and OT Networks:</strong> Lack of strict network segmentation and industrial firewalls between office LANs and factory floors allows ransomware to paralyze assembly lines within minutes.</li>
+    <li><strong>2. Legacy PLC & Machine Firmware Without Tested Backups:</strong> Critical production machinery running on legacy industrial controllers often lacks configuration backups, turning a localized hardware failure into weeks of plant downtime.</li>
+    <li><strong>3. Unrestricted Remote Access by Machinery Vendors:</strong> Third-party machine technicians connecting via unmonitored remote tools without MFA or Zero Trust controls create open backdoors into the plant environment.</li>
+    <li><strong>4. Technical DR Without Operational Workarounds (BCP):</strong> Focusing solely on server recovery while neglecting manual production, warehousing, and shipping procedures needed during an extended ERP outage.</li>
+    <li><strong>5. Misaligned RTO/RPO Not Tied to Financial Downtime Costs:</strong> Failing to calculate the true cost of factory downtime per hour, leading to inadequate investment in failover systems for line-critical dependencies.</li>
+</ol>
+<div class="insight-conclusion-box"><strong>Executive Recommendation:</strong> Resilient manufacturing demands OT-specific risk assessments, uncompromising network zoning, and cross-functional crisis tabletop drills uniting plant managers and IT leadership.</div>`
             }
         };
 
@@ -3126,6 +3353,17 @@
                 }
             });
 
+            // שימור בחירת המשתמש בשדות Dropdown בעת החלפת שפה
+            const empEl = document.getElementById('employees');
+            const countryEl = document.getElementById('country');
+            const serviceEl = document.getElementById('service');
+            const timelineEl = document.getElementById('timeline');
+
+            const prevEmp = empEl ? empEl.selectedIndex : -1;
+            const prevCountry = countryEl ? countryEl.selectedIndex : -1;
+            const prevService = serviceEl ? serviceEl.selectedIndex : -1;
+            const prevTimeline = timelineEl ? timelineEl.selectedIndex : -1;
+
             // עדכון שדות טופס מותאמים
             if (isEn) {
                 document.getElementById('name').placeholder = "John Doe";
@@ -3136,19 +3374,19 @@
                 document.getElementById('modalInsightCta').textContent = "Schedule Assessment Consultation";
 
                 // עדכון אפשרויות בחירה בטופס לאנגלית
-                document.getElementById('employees').innerHTML = `
+                if (empEl) empEl.innerHTML = `
                     <option value="1-50">1 - 50 Employees</option>
                     <option value="51-200" selected>51 - 200 Employees</option>
                     <option value="201-500">201 - 500 Employees</option>
                     <option value="500+">500+ Employees</option>
                 `;
-                document.getElementById('country').innerHTML = `
+                if (countryEl) countryEl.innerHTML = `
                     <option value="Israel" selected>Israel</option>
                     <option value="United States">United States</option>
                     <option value="Europe">Europe</option>
                     <option value="Global / Other">Global / Other</option>
                 `;
-                document.getElementById('service').innerHTML = `
+                if (serviceEl) serviceEl.innerHTML = `
                     <option value="Fractional CISO">Fractional CISO</option>
                     <option value="Fractional CIO">Fractional CIO</option>
                     <option value="ISO 27001 Readiness">ISO 27001 Readiness</option>
@@ -3157,7 +3395,7 @@
                     <option value="Microsoft 365 & Endpoint Security">Microsoft 365 & Endpoint Security</option>
                     <option value="Custom Advisory / Combined Model">Custom Advisory / Combined Model</option>
                 `;
-                document.getElementById('timeline').innerHTML = `
+                if (timelineEl) timelineEl.innerHTML = `
                     <option value="Immediate (Next 30 Days)">Immediate (Next 30 Days)</option>
                     <option value="Next Quarter">Within the Next Quarter</option>
                     <option value="Exploratory / Budgeting">Exploratory / Budgeting</option>
@@ -3171,19 +3409,19 @@
                 document.getElementById('modalInsightCta').textContent = "לתיאום שיחת הערכת מצב";
 
                 // עדכון אפשרויות בחירה בטופס לעברית
-                document.getElementById('employees').innerHTML = `
+                if (empEl) empEl.innerHTML = `
                     <option value="1-50">1 - 50 עובדים</option>
                     <option value="51-200" selected>51 - 200 עובדים</option>
                     <option value="201-500">201 - 500 עובדים</option>
                     <option value="500+">500+ עובדים</option>
                 `;
-                document.getElementById('country').innerHTML = `
+                if (countryEl) countryEl.innerHTML = `
                     <option value="ישראל" selected>ישראל (Israel)</option>
                     <option value="ארצות הברית">ארצות הברית (United States)</option>
                     <option value="אירופה">אירופה (Europe)</option>
                     <option value="אחר">אחר (Global / Other)</option>
                 `;
-                document.getElementById('service').innerHTML = `
+                if (serviceEl) serviceEl.innerHTML = `
                     <option value="CISO כשירות (Fractional CISO)">CISO כשירות (Fractional CISO)</option>
                     <option value="CIO כשירות (Fractional CIO)">CIO כשירות (Fractional CIO)</option>
                     <option value="היערכות ל-ISO 27001">היערכות ל-ISO 27001</option>
@@ -3192,12 +3430,18 @@
                     <option value="Microsoft 365 ואבטחת תחנות">Microsoft 365 ואבטחת תחנות</option>
                     <option value="חבילת שירות מותאמת">ייעוץ כללי / חבילה משולבת</option>
                 `;
-                document.getElementById('timeline').innerHTML = `
+                if (timelineEl) timelineEl.innerHTML = `
                     <option value="מיידי (החודש)">מיידי (במהלך החודש הקרוב)</option>
                     <option value="ברבעון הקרוב">במהלך הרבעון הקרוב</option>
                     <option value="בדיקה ראשונית ובניית תקציב">בחינה ראשונית ובניית תקציב</option>
                 `;
             }
+
+            // שחזור הבחירה המקורית
+            if (empEl && prevEmp >= 0) empEl.selectedIndex = prevEmp;
+            if (countryEl && prevCountry >= 0) countryEl.selectedIndex = prevCountry;
+            if (serviceEl && prevService >= 0) serviceEl.selectedIndex = prevService;
+            if (timelineEl && prevTimeline >= 0) timelineEl.selectedIndex = prevTimeline;
         }
 
         // האזנה לכפתור שפה
@@ -3277,7 +3521,7 @@
             if (!art) return;
             const isEn = currentLang === 'en';
             modalInsightTitle.textContent = isEn ? art.title_en : art.title_he;
-            modalInsightBody.innerHTML = `<p>${isEn ? art.body_en : art.body_he}</p>`;
+            modalInsightBody.innerHTML = isEn ? art.body_en : art.body_he;
             insightModal.style.display = 'flex';
         }
 
