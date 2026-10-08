@@ -3141,7 +3141,7 @@
                 in3_desc: "Why server backups alone are not a business continuity plan and how to build operational resilience.",
                 in4_tag: "Microsoft 365",
                 in4_title: "Essential Microsoft 365 Security Health Check Every Board Should Know",
-                in4_desc: "Critical configuration vulnerabilities in Entra ID, Exchange Online, and Defender left exposed by default.",
+                in4_desc: "Ten critical configuration checkpoints in Entra ID, Exchange Online, and Defender left exposed by default.",
                 in5_tag: "Board Governance",
                 in5_title: "How to Present Cyber Risk to Executives and the Board",
                 in5_desc: "Translating technical metrics into business impacts, financial exposure, and strategic prioritization.",
@@ -3246,26 +3246,36 @@
                 body_en: "Disaster Recovery (DR) focuses on technical server and data recovery. Business Continuity Planning (BCP) encompasses the entire operational workflow – workforce safety, customer communication, supply chain survival, and executive command. Investing in DR alone leaves the enterprise vulnerable if business processes cannot operate."
             },
             4: {
-                title_he: "בדיקת אבטחה בסיסית ל־Microsoft 365",
-                title_en: "Essential Microsoft 365 Security Health Check",
-                body_he: `<p class="insight-lead">סביבות ברירת מחדל ב-Microsoft 365 משאירות לעיתים קרובות הרשאות יתר, פרוטוקולי Legacy פתוחים ואימות דו-שלבי חלקי. להלן בדיקות הליבה שכל הנהלה וצוות IT חייבים לבצע:</p>
+                title_he: "בדיקת אבטחה בסיסית ל־Microsoft 365: עשר נקודות תצורה קריטיות",
+                title_en: "Essential Microsoft 365 Security Health Check: Ten Critical Configuration Checkpoints",
+                body_he: `<p class="insight-lead">סביבות ברירת מחדל ב-Microsoft 365 משאירות לעיתים קרובות הרשאות יתר, פרוטוקולי Legacy פתוחים ואימות דו-שלבי חלקי. להלן עשר נקודות התצורה הקריטיות שכל הנהלה וצוות IT חייבים להכיר ולבקר באופן יזום:</p>
 <ol class="insight-steps-list">
-    <li><strong>1. אכיפת אימות רב-שלבי (MFA) עמיד לפישינג:</strong> מעבר מאימות SMS פגיע ל-Authenticator או FIDO2 עם Number Matching.</li>
-    <li><strong>2. חסימת פרוטוקולי אימות ישנים (Legacy Auth):</strong> ביטול POP3, IMAP ו-SMTP AUTH המאפשרים עקיפת MFA.</li>
-    <li><strong>3. הקשחת מדיניות גישה מותנית (Conditional Access):</strong> הגבלת גישה ממדינות זרות (Geo-blocking) ודרישת מכשיר מנוהל ותואם (Compliant Device).</li>
-    <li><strong>4. הפעלת יומני ביקורת מורחבים (Unified Audit Log):</strong> וידוא שהלוגים נשמרים למשך שנה לפחות לצורך תחקור אירועי סייבר.</li>
-    <li><strong>5. הגבלת שיתוף קבצים חיצוני ב-SharePoint ו-OneDrive:</strong> חסימת קישורים פתוחים לכלל הציבור (Anyone Links) ללא תפוגה ואימות.</li>
+    <li><strong>1. אכיפת אימות רב-שלבי (MFA) עמיד לפישינג:</strong> מעבר מאימות SMS פגיע לשימוש ב-Microsoft Authenticator עם Number Matching או מפתחות FIDO2 עמידים לפישינג (Phishing-Resistant) לכלל עובדי ומנהלי הארגון.</li>
+    <li><strong>2. חסימת פרוטוקולי אימות ישנים (Legacy Authentication):</strong> השבתה מוחלטת של POP3, IMAP, MAPI ו-Basic SMTP AUTH שאינם תומכים ב-MFA ומהווים את הפרצה המרכזית למתקפות Password Spraying ופריצת תיבות.</li>
+    <li><strong>3. הקשחת מדיניות גישה מותנית (Conditional Access):</strong> הטמעת כללי Zero Trust מחמירים, הכוללים חסימת גישה ממדינות זרות ללא פעילות עסקית (Geo-blocking), דרישת מכשיר מנוהל ותואם (Compliant Device דרך Intune), והגבלת חיבורי Session מדפדפנים לא מנוהלים.</li>
+    <li><strong>4. ניהול הרשאות יתר והגבלת חשבונות ניהול גלובליים (Global Admin):</strong> צמצום מספר מנהלי ה-Global Admin למינימום ההכרחי (2 עד 4 חשבונות בלבד), הפרדה מלאה מחשבונות דוא"ל שוטפים, והפעלת Privileged Identity Management (PIM) להרשאות Just-in-Time.</li>
+    <li><strong>5. הגנה על חשבונות חירום מנותקים (Break-Glass Accounts):</strong> הגדרת שני חשבונות חירום מוחרגים ממדיניות הגישה הרגילה אך מאובטחים בסיסמאות מורכבות בכספת מאובטחת, ללא רישוי עודף, ועם התרעות מיידיות בזמן אמת ל-SOC בעת כל ניסיון התחברות.</li>
+    <li><strong>6. ביטול העברת דואר אוטומטית החוצה (External Auto-Forwarding):</strong> חסימה גורפת ברמת Exchange Online של כללי תיבת דואר המעבירים דוא"ל אוטומטית לכתובות חיצוניות (Outbound Anti-Spam Policy), המהווה וקטור קלאסי לדליפת מידע ומתקפות BEC.</li>
+    <li><strong>7. הפעלת יומני ביקורת מורחבים וניטור (Unified Audit Log):</strong> וידוא שיומני ה-Audit מופעלים ונשמרים למשך שנה לפחות (Purview Audit) לטובת תחקור אירועי סייבר, בשילוב התרעות אוטומטיות על שינויי תצורה והענקת הרשאות חריגות.</li>
+    <li><strong>8. הגבלת שיתוף קבצים חיצוני ב-SharePoint וב-OneDrive:</strong> חסימת קישורים פתוחים לכלל הציבור (Anyone Links) ללא תפוגה ואימות, הגבלת שיתוף לדומיינים מורשים בלבד (Allowlist), ומניעת הורדת קבצים במכשירים לא מנוהלים.</li>
+    <li><strong>9. חסימת הסכמת משתמשים לאפליקציות צד שלישי (OAuth App Consent):</strong> ביטול היכולת של עובדים לאשר עצמאית הרשאות גישה ליישומי צד שלישי (מניעת מתקפות Illicit Consent Grants) והפעלת מנגנון Admin Consent מסודר לאישור אפליקציות.</li>
+    <li><strong>10. הגדרת בקרות Defender for Office 365:</strong> הפעלת Safe Links ו-Safe Attachments לסריקת קישורים וקבצים בזמן אמת ב-Outlook, Teams ו-SharePoint, בשילוב בקרות Anti-Phishing מתקדמות והגנה מפני התחזות לבכירים (Impersonation Protection).</li>
 </ol>
-<div class="insight-conclusion-box"><strong>המלצת CISO:</strong> סקירה מעשית של תצורת Entra ID, הגדרת Conditional Access מוקפדת והפעלת בקרות Defender מונעות מעל 90% מניסיונות ההשתלטות על תיבות דוא"ל ארגוניות.</div>`,
-                body_en: `<p class="insight-lead">Default configurations in Microsoft 365 often leave legacy authentication open and multi-factor authentication inconsistently enforced. Here are the core baseline checks every executive and IT team must review:</p>
+<div class="insight-conclusion-box"><strong>המלצת CISO:</strong> סקירה מעשית של עשר נקודות תצורה אלו ב-Entra ID, Exchange ו-Defender סוגרת את וקטורי התקיפה הנפוצים ביותר ומונעת מעל 90% מאירועי ההשתלטות על זהויות ותיבות דוא"ל ארגוניות.</div>`,
+                body_en: `<p class="insight-lead">Default configurations in Microsoft 365 frequently leave excessive privileges, open legacy protocols, and incomplete multi-factor controls. Here are the ten critical configuration checkpoints every executive and IT team must understand and audit:</p>
 <ol class="insight-steps-list">
-    <li><strong>1. Phishing-Resistant MFA Enforcement:</strong> Migrating away from vulnerable SMS codes to Microsoft Authenticator or FIDO2 keys with number matching.</li>
-    <li><strong>2. Blocking Legacy Authentication Protocols:</strong> Disabling legacy POP3, IMAP, and Basic SMTP protocols that bypass multi-factor authentication.</li>
-    <li><strong>3. Hardened Conditional Access Policies:</strong> Implementing geographical restrictions (Geo-blocking) and requiring compliant, managed endpoints for corporate data access.</li>
-    <li><strong>4. Comprehensive Audit Logging:</strong> Ensuring Unified Audit Logging (UAL) is enabled with appropriate retention for forensic incident investigations.</li>
-    <li><strong>5. External Sharing Governance:</strong> Restricting anonymous external sharing links across SharePoint and OneDrive to prevent uncontrolled data leakage.</li>
+    <li><strong>1. Phishing-Resistant MFA Enforcement:</strong> Migrating away from vulnerable SMS and phone call verification to Microsoft Authenticator with Number Matching or FIDO2 hardware keys across all users and administrators.</li>
+    <li><strong>2. Blocking Legacy Authentication Protocols:</strong> Disabling obsolete POP3, IMAP, MAPI, and Basic SMTP protocols that bypass MFA and serve as the primary entry point for automated password spray attacks.</li>
+    <li><strong>3. Hardened Conditional Access (Zero Trust):</strong> Implementing strict policies including geographic blocking (Geo-blocking) of non-operational regions, requiring managed and compliant endpoints (via Intune), and restricting unmanaged browser sessions.</li>
+    <li><strong>4. Privileged Access Governance & Minimizing Global Admins:</strong> Reducing Global Administrator accounts to the absolute minimum (2 to 4 accounts), strictly decoupling administrative roles from daily email accounts, and enforcing Privileged Identity Management (PIM) for Just-in-Time elevation.</li>
+    <li><strong>5. Securing Emergency Break-Glass Accounts:</strong> Establishing two dedicated break-glass emergency accounts excluded from standard Conditional Access, secured in digital/physical vaults, and monitored with real-time SOC alerting upon any login attempt.</li>
+    <li><strong>6. Disabling External Email Auto-Forwarding:</strong> Enforcing tenant-wide Exchange Online outbound anti-spam policies that block automatic mailbox forwarding to external addresses—a primary indicator and tactic of Business Email Compromise (BEC).</li>
+    <li><strong>7. Enabling Unified Audit Logging (UAL) & Threat Monitoring:</strong> Verifying that Microsoft Purview Unified Audit Log is enabled with at least 1-year retention for forensic investigations, paired with automated alerts for anomalous admin assignments and mailbox rule tampering.</li>
+    <li><strong>8. Governing External Sharing in SharePoint & OneDrive:</strong> Disabling anonymous public sharing ("Anyone" links), enforcing mandatory link expiration and authentication, and restricting file downloads from unmanaged personal devices.</li>
+    <li><strong>9. Restricting User OAuth Application Consent:</strong> Blocking self-service end-user app consents (mitigating illicit OAuth grant attacks) and routing all third-party enterprise app integrations through a structured administrator approval workflow.</li>
+    <li><strong>10. Configuring Microsoft Defender for Office 365:</strong> Activating Safe Links and Safe Attachments for real-time URL and attachment detonation across Outlook, Teams, and SharePoint, alongside advanced anti-phishing and executive impersonation protection.</li>
 </ol>
-<div class="insight-conclusion-box"><strong>Executive Recommendation:</strong> A disciplined configuration review of Entra ID and Microsoft Defender eliminates over 90% of business email compromise (BEC) vectors.</div>`
+<div class="insight-conclusion-box"><strong>Executive Recommendation:</strong> A disciplined configuration audit across these ten checkpoints in Entra ID, Exchange, and Defender closes the most prevalent attack vectors and eliminates over 90% of account takeovers and email compromise incidents.</div>`
             },
             5: {
                 title_he: "כיצד להציג סיכוני סייבר להנהלה ולדירקטוריון",
