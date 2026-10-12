@@ -33,7 +33,7 @@ export default {
                 const data = await request.json();
 
                 // הגנת ספאם (Honeypot) - זיהוי בוטים
-                if (data.botcheck) {
+                if (data.botcheck || data._hp_check) {
                     return new Response(JSON.stringify({
                         success: true,
                         message: "Spam check triggered"
@@ -235,17 +235,27 @@ export default {
                     }
                 }
 
-                // ניקוי טוקנים טכניים של קאפצ'ה לפני העברה ל-Web3Forms
+                // ניקוי טוקנים טכניים של קאפצ'ה ושדות Honeypot לפני העברה ל-Web3Forms
                 const cleanPayload = { ...data };
                 delete cleanPayload['cf-turnstile-response'];
                 delete cleanPayload['h-captcha-response'];
                 delete cleanPayload['g-recaptcha-response'];
+                delete cleanPayload['botcheck'];
+                delete cleanPayload['_hp_check'];
+
+                // חיטוי קלט למניעת הזרקת HTML (XSS & HTML Injection)
+                const sanitize = (val) => typeof val === 'string' ? val.replace(/[<>&"']/g, '').trim() : val;
+                cleanPayload.name = sanitize(data.name);
+                cleanPayload.company = sanitize(data.company);
+                if (cleanPayload.role) cleanPayload.role = sanitize(data.role);
+                if (cleanPayload.phone) cleanPayload.phone = sanitize(data.phone);
+                if (cleanPayload.message) cleanPayload.message = sanitize(data.message);
 
                 // הרכבת הנתונים עבור Web3Forms
                 const payload = {
                     ...cleanPayload,
                     access_key: accessKey,
-                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? data.subject : "פנייה חדשה מאתר Cyber Path",
+                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? sanitize(data.subject) : "פנייה חדשה מאתר Cyber Path",
                     from_name: "Cyber Path"
                 };
 
