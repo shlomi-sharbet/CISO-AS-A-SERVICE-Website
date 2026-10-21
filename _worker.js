@@ -1,3 +1,5 @@
+import { EmailMessage } from "cloudflare:email";
+
 /**
  * Cloudflare Worker entrypoint
  * Hardened Backend-for-Frontend (BFF) Proxy for contact form and secure static asset delivery.
@@ -251,30 +253,136 @@ export default {
                 if (cleanPayload.phone) cleanPayload.phone = sanitize(data.phone);
                 if (cleanPayload.message) cleanPayload.message = sanitize(data.message);
 
-                // הרכבת הנתונים עבור Web3Forms
-                const payload = {
-                    ...cleanPayload,
-                    access_key: accessKey,
-                    subject: typeof data.subject === "string" && data.subject.length <= 150 ? sanitize(data.subject) : "פנייה חדשה מאתר Cyber Path",
-                    from_name: "Cyber Path"
-                };
+                // שליחת התראה בדוא״ל: עדיפות ל-Cloudflare Native (send_email binding)
+                let emailSent = false;
+                let emailError = null;
 
-                // שליחה לשרת של Web3Forms
-                const response = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
+                if (env.EMAIL && env.BUSINESS_ALERT_EMAIL) {
+                    try {
+                        const recipient = env.BUSINESS_ALERT_EMAIL;
+                        const sender = env.FROM_EMAIL || `notifications@${url.hostname.replace(/^www\./, '')}`;
+                        const emailSubject = `פנייה חדשה מאתר Cyber Path: ${cleanPayload.name} (${cleanPayload.company})`;
 
-                const result = await response.json();
+                        const htmlBody = `
+                          <div dir="rtl" style="font-family: Arial, 'Heebo', sans-serif; line-height: 1.6; color: #1e293b; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                            <div style="background: linear-gradient(135deg, #070d18 0%, #0c1527 100%); padding: 24px; color: #ffffff; text-align: center;">
+                              <h1 style="margin: 0; font-size: 22px; color: #38bdf8;">Cyber Path</h1>
+                              <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">התקבלה פנייה חדשה מטופס יצירת הקשר באתר</p>
+                            </div>
+                            <div style="padding: 24px; background: #ffffff;">
+                              <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+                                <tr><td style="padding: 8px 0; color: #64748b; width: 140px;"><strong>שם מלא:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.name}</td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>חברה / ארגון:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.company}</td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>תפקיד:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.role || 'לא צוין'}</td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>דוא״ל עסקי:</strong></td><td style="padding: 8px 0; color: #0284c7;"><a href="mailto:${cleanPayload.email}" style="color: #0284c7;">${cleanPayload.email}</a></td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>טלפון:</strong></td><td style="padding: 8px 0; color: #0f172a;"><a href="tel:${cleanPayload.phone}" style="color: #0f172a;">${cleanPayload.phone}</a></td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>מספר עובדים:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.employees || 'לא צוין'}</td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>שירות מבוקש:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.service || 'כללי'}</td></tr>
+                                <tr><td style="padding: 8px 0; color: #64748b;"><strong>לוח זמנים:</strong></td><td style="padding: 8px 0; color: #0f172a;">${cleanPayload.timeframe || 'לא צוין'}</td></tr>
+                              </table>
+                              <div style="margin-top: 16px; padding: 14px; background: #f8fafc; border-right: 4px solid #0284c7; border-radius: 4px;">
+                                <strong style="color: #334155; display: block; margin-bottom: 6px;">הודעה / פרטים נוספים:</strong>
+                                <div style="color: #475569; white-space: pre-wrap;">${cleanPayload.message || 'לא צורפה הודעה נוספת.'}</div>
+                              </div>
+                            </div>
+                            <div style="padding: 14px; background: #f1f5f9; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+                              הודעה מאובטחת זו נוצרה ונשלחה אוטומטית ע״י שרתי הקצה של Cyber Path
+                            </div>
+                          </div>
+                        `;
 
-                return new Response(JSON.stringify(result), {
-                    status: response.status,
-                    headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
-                });
+                        // מבנה RFC 2822 תואם MIME עם קידוד Base64 UTF-8 לכותרת
+                        const rawMime = [
+                            `From: "Cyber Path Alerts" <${sender}>`,
+                            `To: <${recipient}>`,
+                            `Reply-To: <${cleanPayload.email}>`,
+                            `Subject: =?utf-8?B?${btoa(unescape(encodeURIComponent(emailSubject)))}?=`,
+                            `MIME-Version: 1.0`,
+                            `Content-Type: text/html; charset=utf-8`,
+                            ``,
+                            htmlBody
+                        ].join('\r\n');
+
+                        const emailMsg = new EmailMessage(sender, recipient, rawMime);
+                        await env.EMAIL.send(emailMsg);
+                        emailSent = true;
+                    } catch (nativeEmailErr) {
+                        console.error("Cloudflare Native send_email error:", nativeEmailErr);
+                        emailError = nativeEmailErr;
+                    }
+                }
+
+                // אם Cloudflare Native לא מוגדר או נכשל, נסה משלוח דרך Web3Forms (Fallback)
+                if (!emailSent && accessKey) {
+                    try {
+                        const payload = {
+                            ...cleanPayload,
+                            access_key: accessKey,
+                            subject: typeof data.subject === "string" && data.subject.length <= 150 ? sanitize(data.subject) : "פנייה חדשה מאתר Cyber Path",
+                            from_name: "Cyber Path"
+                        };
+
+                        const response = await fetch("https://api.web3forms.com/submit", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+                        if (response.ok && result.success) {
+                            emailSent = true;
+                        }
+                    } catch (w3fErr) {
+                        console.error("Web3Forms fallback error:", w3fErr);
+                    }
+                }
+
+                // סנכרון וגיבוי אוטומטי ל-Google Sheets (Mini-CRM מאובטח עם Secret Token)
+                if (env.GOOGLE_SHEETS_WEBHOOK_URL && env.GOOGLE_SHEETS_SECRET_TOKEN) {
+                    try {
+                        await fetch(env.GOOGLE_SHEETS_WEBHOOK_URL, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                token: env.GOOGLE_SHEETS_SECRET_TOKEN,
+                                timestamp: new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" }),
+                                name: cleanPayload.name,
+                                company: cleanPayload.company,
+                                role: cleanPayload.role || '',
+                                email: cleanPayload.email,
+                                phone: cleanPayload.phone,
+                                employees: cleanPayload.employees || '',
+                                service: cleanPayload.service || '',
+                                timeframe: cleanPayload.timeframe || '',
+                                message: cleanPayload.message || ''
+                            })
+                        });
+                    } catch (sheetErr) {
+                        console.error("Google Sheets sync warning:", sheetErr);
+                        // פעולה לא חוסמת: הצלחת המשלוח המרכזי תקפה גם אם סנכרון הגיליון מתעכב
+                    }
+                }
+
+                if (emailSent) {
+                    return new Response(JSON.stringify({
+                        success: true,
+                        message: "הפנייה התקבלה בהצלחה! ניצור עמך קשר בהקדם."
+                    }), {
+                        status: 200,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                } else {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        message: "שגיאה במשלוח הטופס. אנא ודא כי פרטי ההתקשרות נכונים או פנה ישירות."
+                    }), {
+                        status: 502,
+                        headers: { "Content-Type": "application/json; charset=utf-8", ...SECURITY_HEADERS }
+                    });
+                }
 
             } catch (error) {
                 console.error("Contact API Server Error:", error);

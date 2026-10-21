@@ -8,5 +8,10 @@
     "directory": ".",
     "binding": "ASSETS"
   },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
   "previews": {}
 }

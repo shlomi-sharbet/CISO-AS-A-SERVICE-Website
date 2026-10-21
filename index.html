@@ -7,9 +7,16 @@
     <title id="pageTitle">Cyber Path | הנהגת סייבר, תאימות וטכנולוגיה לארגונים (Fractional CIO & CISO)</title>
     <meta id="metaDesc" name="description"
         content="Cyber Path מסייעת לארגונים לנהל סיכוני סייבר, לעמוד בדרישות רגולציה ולקוחות, לשפר המשכיות עסקית ולבנות תשתית מאובטחת, ללא צורך בגיוס CIO או CISO במשרה מלאה.">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://cyber-path.shlomi-sharbet.workers.dev/">
     <meta name="theme-color" content="#070d18">
+
+    <!-- Local GEO Meta Tags (מיקוד גיאוגרפי מקומי - תל אביב וישראל) -->
+    <meta name="geo.region" content="IL-TA">
+    <meta name="geo.placename" content="Tel Aviv">
+    <meta name="geo.position" content="32.0853;34.7818">
+    <meta name="ICBM" content="32.0853, 34.7818">
+
     <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://*.analytics.google.com https://www.facebook.com; img-src 'self' data: https:;">
 
@@ -41,11 +48,30 @@
           "@type": "Organization",
           "@id": "https://cyber-path.shlomi-sharbet.workers.dev/#organization",
           "name": "Cyber Path",
+          "legalName": "Cyber Path Advisory Ltd.",
           "url": "https://cyber-path.shlomi-sharbet.workers.dev/",
           "description": "Executive Cybersecurity, Compliance and Technology Advisory for mid-market, industrial and enterprise organizations.",
+          "telephone": "+972-50-0000000",
+          "email": "contact@cyber-path.co.il",
+          "priceRange": "₪₪₪",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Tel Aviv",
+            "addressRegion": "Center",
+            "addressCountry": "IL"
+          },
+          "knowsAbout": [
+            "Fractional CISO",
+            "Fractional CIO",
+            "ISO 27001 Compliance",
+            "Business Continuity Management (BCP/DR)",
+            "Privacy Protection Law Amendment 13",
+            "Microsoft 365 & Entra ID Hardening"
+          ],
           "founder": {
             "@type": "Person",
-            "name": "Rubi Paz"
+            "name": "Rubi Paz",
+            "jobTitle": "Lead Executive Advisor & Fractional CIO/CISO"
           },
           "contactPoint": {
             "@type": "ContactPoint",
@@ -61,7 +87,8 @@
           "publisher": {
             "@id": "https://cyber-path.shlomi-sharbet.workers.dev/#organization"
           },
-          "inLanguage": ["he-IL", "en-US"]
+          "inLanguage": ["he-IL", "en-US"],
+          "dateModified": "2026-10-21T10:00:00+03:00"
         },
         {
           "@type": "ProfessionalService",
@@ -211,7 +238,7 @@
 
         .skip-link {
             position: absolute;
-            top: -999px;
+            top: -120px;
             inset-inline-start: 1.5rem;
             z-index: 100000;
             background: linear-gradient(135deg, var(--cyan) 0%, var(--primary) 100%);
@@ -228,6 +255,21 @@
             top: 1.25rem;
         }
 
+        /* RTL-Safe Zero-Layout Clip Pattern (מניעת גלילה אופקית במובייל) */
+        .hp-field, .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -237,16 +279,21 @@
             }
         }
 
+        /* הכלה גלובלית כפולה על html ו-body למניעת חריגות רוחב במובייל (Zero Horizontal Scroll) */
         html {
+            max-width: 100%;
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
         body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
             font-family: 'Heebo', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-canvas);
             color: var(--text-body);
             line-height: 1.65;
-            overflow-x: hidden;
             background-image: 
                 radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
                 radial-gradient(circle at 85% 75%, rgba(2, 132, 199, 0.08) 0%, transparent 45%);
@@ -255,6 +302,189 @@
 
         body.lang-en {
             font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        /* אותות E-E-A-T וטריות תוכן */
+        .eeat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+            padding: 8px 16px;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 9999px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .eeat-badge svg {
+            color: var(--cyan);
+            flex-shrink: 0;
+        }
+
+        /* פרק השוואת חלופות וטבלה סמנטית (Semantic Comparison Table) */
+        .section-comparison {
+            background: linear-gradient(180deg, var(--bg-canvas) 0%, rgba(12, 21, 39, 0.75) 50%, var(--bg-canvas) 100%);
+            position: relative;
+        }
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            margin: 2.5rem 0 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            background: var(--bg-surface);
+            -webkit-overflow-scrolling: touch;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: start;
+            min-width: 680px;
+            font-size: 0.95rem;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: top;
+        }
+        .comparison-table thead tr {
+            background: rgba(17, 29, 53, 0.95);
+        }
+        .comparison-table thead th {
+            font-weight: 700;
+            color: var(--text-heading);
+            font-size: 1rem;
+        }
+        .comparison-table thead th.th-highlight {
+            background: rgba(6, 182, 212, 0.12);
+            border-top: 3px solid var(--cyan);
+            color: #ffffff;
+            position: relative;
+        }
+        .th-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--primary) 100%);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 9999px;
+            margin-bottom: 4px;
+        }
+        .comparison-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .comparison-table tbody tr:last-child th,
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table .td-param {
+            font-weight: 600;
+            color: var(--text-heading);
+            width: 25%;
+        }
+        .comparison-table td.td-highlight {
+            background: rgba(6, 182, 212, 0.05);
+            border-inline: 1px solid rgba(6, 182, 212, 0.2);
+            color: #e2e8f0;
+        }
+        .comparison-table td.td-highlight strong {
+            color: var(--cyan);
+        }
+        .comparison-table td small {
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .comp-cta-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 24px 32px;
+            background: linear-gradient(135deg, rgba(12, 21, 39, 0.9) 0%, rgba(17, 29, 53, 0.9) 100%);
+            border: 1px solid var(--border-highlight);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-glow);
+            margin-top: 1.5rem;
+        }
+        .comp-cta-text h3 {
+            font-size: 1.25rem;
+            color: var(--text-heading);
+            margin-bottom: 4px;
+        }
+        .comp-cta-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        @media (max-width: 768px) {
+            .comp-cta-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+
+        /* סרגל פעולות מהיר למובייל (Mobile Sticky Quick-Action Bar) */
+        .mobile-sticky-action-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(7, 13, 24, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-highlight);
+            padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .mobile-sticky-action-bar {
+                display: flex;
+            }
+            body {
+                padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+            }
+        }
+        .mobile-bar-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 44px;
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            flex: 1;
+        }
+        .mobile-call-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-heading);
+            border: 1px solid var(--border-subtle);
+        }
+        .mobile-wa-btn {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25d366;
+            border: 1px solid rgba(37, 211, 102, 0.35);
+        }
+        .mobile-cta-btn {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--primary) 100%);
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35);
+            flex: 1.3;
         }
 
         .container {
@@ -1836,6 +2066,7 @@
                     <li><a href="#industries" class="nav-item" data-i18n="nav_industries">מגזרים</a></li>
                     <li><a href="#about" class="nav-item" data-i18n="nav_about">אודות</a></li>
                     <li><a href="#method" class="nav-item" data-i18n="nav_method">שיטת עבודה</a></li>
+                    <li><a href="#comparison" class="nav-item" data-i18n="nav_comparison">השוואה</a></li>
                     <li><a href="#packages" class="nav-item" data-i18n="nav_packages">חבילות</a></li>
                     <li><a href="#insights" class="nav-item" data-i18n="nav_insights">תובנות</a></li>
                     <li><a href="#faq" class="nav-item" data-i18n="nav_faq">שאלות נפוצות</a></li>
@@ -1892,6 +2123,10 @@
                             <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> BCP & Disaster Recovery</span>
                             <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Microsoft 365 & Intune</span>
                             <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Enterprise Systems & ERP</span>
+                        </div>
+                        <div class="eeat-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span id="eeatAuthorBadge" data-i18n="eeat_badge_text">נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026</span>
                         </div>
                     </div>
                 </div>
@@ -2372,6 +2607,75 @@
         </div>
     </section>
 
+    <!-- פרק השוואת חלופות - Comparison Section (Semantic Table for CRO & AI Citations) -->
+    <section id="comparison" class="section section-comparison">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag" data-i18n="comp_tag">השוואת חלופות מעשית</span>
+                <h2 data-i18n="comp_title">איך לבחור את מודל ההנהגה הנכון לארגון שלך?</h2>
+                <p class="section-desc" data-i18n="comp_desc">
+                    שירות Fractional CISO & CIO מציע את כל היתרונות של מנהל בכיר ומנוסה, בהיקף שעות מותאם ובחיסכון של עשרות אחוזים בעלויות מול גיוס מנהל פנימי או הסתמכות על ספק מחשוב.
+                </p>
+            </div>
+
+            <div class="table-responsive-wrapper">
+                <table class="comparison-table" aria-label="טבלת השוואת מודלים לאבטחת מידע והנהגה טכנולוגית">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-param" data-i18n="comp_th_param">פרמטר השוואה</th>
+                            <th scope="col" class="th-highlight" data-i18n="comp_th_cyberpath">
+                                <div class="th-badge" data-i18n="comp_badge_recommended">הבחירה האופטימלית</div>
+                                <span>Cyber Path (Fractional CISO/CIO)</span>
+                            </th>
+                            <th scope="col" data-i18n="comp_th_inhouse">CISO פנימי במשרה מלאה</th>
+                            <th scope="col" data-i18n="comp_th_msp">ספק מחשוב רגיל (MSP)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="td-param" data-i18n="comp_r1_param">עלות שנתית לארגון</th>
+                            <td class="td-highlight"><strong data-i18n="comp_r1_cyberpath">מודל גמיש לפי היקף</strong><br><small data-i18n="comp_r1_cyberpath_sub">חיסכון של 50%-70% בעלויות מעביד</small></td>
+                            <td data-i18n="comp_r1_inhouse">₪450,000 - ₪700,000+<br><small>משכורת, תנאים נלווים ותקורה קבועה</small></td>
+                            <td data-i18n="comp_r1_msp">ריטיינר תמיכה שוטף<br><small>הוצאות בלתי צפויות על שעות מומחה</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="td-param" data-i18n="comp_r2_param">זמן להטמעה ותחילת עבודה</th>
+                            <td class="td-highlight"><strong data-i18n="comp_r2_cyberpath">מיידית (תוך ימים ספורים)</strong><br><small data-i18n="comp_r2_cyberpath_sub">כניסה חלקה ומהירה ללא תהליך איתור</small></td>
+                            <td data-i18n="comp_r2_inhouse">3 עד 6 חודשים<br><small>תהליך גיוס מורכב, סינון והכשרה</small></td>
+                            <td data-i18n="comp_r2_msp">זמינות שוטפת לתקלות<br><small>אך ללא הובלה יזומה או תוכנית אסטרטגית</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="td-param" data-i18n="comp_r3_param">עצמאות ואובייקטיביות מקצועית</th>
+                            <td class="td-highlight"><strong data-i18n="comp_r3_cyberpath">100% עצמאי ואובייקטיבי</strong><br><small data-i18n="comp_r3_cyberpath_sub">אפס ניגוד עניינים מסחרי מול ספקי רישוי</small></td>
+                            <td data-i18n="comp_r3_inhouse">ראייה פנימית בלבד<br><small>מושפע מפוליטיקה ארגונית ומגבלות פנים</small></td>
+                            <td data-i18n="comp_r3_msp">ניגוד אינטרסים מובנה<br><small>אינטרס מובהק למכירת חומרה ורישיונות</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="td-param" data-i18n="comp_r4_param">היערכות ל-ISO 27001 ורגולציה</th>
+                            <td class="td-highlight"><strong data-i18n="comp_r4_cyberpath">מתודולוגיה מובנית ומוכחת</strong><br><small data-i18n="comp_r4_cyberpath_sub">סקר פערים, נהלים, בקרות ומבדק פנימי</small></td>
+                            <td data-i18n="comp_r4_inhouse">תלוי בניסיון אישי ספציפי<br><small>לעיתים מחייב שכירת יועץ חיצוני נוסף</small></td>
+                            <td data-i18n="comp_r4_msp">חלקי וממוקד תשתית<br><small>אינו מכסה היבטי ממשל, נהלים ומשאבי אנוש</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="td-param" data-i18n="comp_r5_param">שפה וראייה אסטרטגית מול הנהלה</th>
+                            <td class="td-highlight"><strong data-i18n="comp_r5_cyberpath">ראייה עסקית רחבה</strong><br><small data-i18n="comp_r5_cyberpath_sub">תרגום סיכונים טכניים לשפה עסקית וניהולית</small></td>
+                            <td data-i18n="comp_r5_inhouse">נוכחות הנהלה מלאה<br><small>מחויבות תקציבית גבוהה וקבועה</small></td>
+                            <td data-i18n="comp_r5_msp">מיקוד טכנולוגי-תפעולי<br><small>ללא מעורבות בהחלטות אסטרטגיות</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="comp-cta-banner">
+                <div class="comp-cta-text">
+                    <h3 data-i18n="comp_banner_title">רוצים לבחון את המודל המתאים ביותר לארגון שלכם?</h3>
+                    <p data-i18n="comp_banner_desc">שיחת היכרות מקצועית ללא התחייבות למיפוי הצרכים, הסיכונים וההזדמנויות.</p>
+                </div>
+                <a href="#contact" class="btn btn-primary" data-i18n="cta_schedule">לתיאום שיחת היכרות</a>
+            </div>
+        </div>
+    </section>
+
     <!-- חבילות מסחריות - Packages -->
     <section id="packages" class="section">
         <div class="container">
@@ -2678,8 +2982,8 @@
                     <!-- שדה נושא מוגן -->
                     <input type="hidden" name="subject" value="פנייה חדשה מאתר Cyber Path - תיאום שיחת היכרות">
 
-                    <!-- Honeypot סמוי להגנה מספאם (Multi-tier Bot Defense) -->
-                    <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; pointer-events: none;" aria-hidden="true">
+                    <!-- Honeypot סמוי להגנה מספאם (Multi-tier Bot Defense - RTL-safe Zero Layout) -->
+                    <div class="hp-field" aria-hidden="true">
                         <label for="hp_check">שדה נסתר - אין למלא</label>
                         <input type="text" id="hp_check" name="_hp_check" tabindex="-1" autocomplete="off">
                         <input type="checkbox" id="botcheck_input" name="botcheck" tabindex="-1" autocomplete="off">
@@ -2947,6 +3251,21 @@
             </div>
         </div>
     </div>
+
+    <!-- סרגל פעולות מהיר למובייל (Mobile Sticky Quick-Action Bar - CRO & Ergonomics) -->
+    <aside class="mobile-sticky-action-bar" aria-label="סרגל פעולות מהיר למובייל">
+        <a href="tel:050-0000000" class="mobile-bar-btn mobile-call-btn" aria-label="חיוג טלפוני ישיר ל-Cyber Path">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span data-i18n="bar_call">חיוג ישיר</span>
+        </a>
+        <a href="https://wa.me/972500000000?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%A4%D7%95%D7%A0%D7%94%20%D7%9E%D7%90%D7%AA%D7%A8%20Cyber%20Path" target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-wa-btn" aria-label="פנייה מהירה ב-WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.55c.13.17 1.73 2.64 4.19 3.7.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg>
+            <span data-i18n="bar_wa">WhatsApp</span>
+        </a>
+        <a href="#contact" class="mobile-bar-btn mobile-cta-btn" aria-label="מעבר לטופס לתיאום פגישה">
+            <span data-i18n="bar_cta">תיאום שיחה</span>
+        </a>
+    </aside>
 
     <!-- סקריפט רשמי של Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -3224,6 +3543,46 @@
                 nav_accessibility: "הצהרת נגישות (ת״י 5568)",
                 nav_terms: "תנאי שימוש",
                 skip_to_content: "דלג לתוכן המרכזי",
+                eeat_badge_text: "נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026",
+                nav_comparison: "השוואת מודלים",
+                comp_tag: "השוואת חלופות מעשית",
+                comp_title: "איך לבחור את מודל ההנהגה הנכון לארגון שלך?",
+                comp_desc: "שירות Fractional CISO & CIO מציע את כל היתרונות של מנהל בכיר ומנוסה, בהיקף שעות מותאם ובחיסכון של עשרות אחוזים בעלויות מול גיוס מנהל פנימי או הסתמכות על ספק מחשוב.",
+                comp_th_param: "פרמטר השוואה",
+                comp_th_cyberpath: "Cyber Path (Fractional CISO/CIO)",
+                comp_badge_recommended: "הבחירה האופטימלית",
+                comp_th_inhouse: "CISO פנימי במשרה מלאה",
+                comp_th_msp: "ספק מחשוב רגיל (MSP)",
+                comp_r1_param: "עלות שנתית לארגון",
+                comp_r1_cyberpath: "מודל גמיש לפי היקף",
+                comp_r1_cyberpath_sub: "חיסכון של 50%-70% בעלויות מעביד",
+                comp_r1_inhouse: "₪450,000 - ₪700,000+<br><small>משכורת, תנאים נלווים ותקורה קבועה</small>",
+                comp_r1_msp: "ריטיינר תמיכה שוטף<br><small>הוצאות בלתי צפויות על שעות מומחה</small>",
+                comp_r2_param: "זמן להטמעה ותחילת עבודה",
+                comp_r2_cyberpath: "מיידית (תוך ימים ספורים)",
+                comp_r2_cyberpath_sub: "כניסה חלקה ומהירה ללא תהליך איתור",
+                comp_r2_inhouse: "3 עד 6 חודשים<br><small>תהליך גיוס מורכב, סינון והכשרה</small>",
+                comp_r2_msp: "זמינות שוטפת לתקלות<br><small>אך ללא הובלה יזומה או תוכנית אסטרטגית</small>",
+                comp_r3_param: "עצמאות ואובייקטיביות מקצועית",
+                comp_r3_cyberpath: "100% עצמאי ואובייקטיבי",
+                comp_r3_cyberpath_sub: "אפס ניגוד עניינים מסחרי מול ספקי רישוי",
+                comp_r3_inhouse: "ראייה פנימית בלבד<br><small>מושפע מפוליטיקה ארגונית ומגבלות פנים</small>",
+                comp_r3_msp: "ניגוד אינטרסים מובנה<br><small>אינטרס מובהק למכירת חומרה ורישיונות</small>",
+                comp_r4_param: "היערכות ל-ISO 27001 ורגולציה",
+                comp_r4_cyberpath: "מתודולוגיה מובנית ומוכחת",
+                comp_r4_cyberpath_sub: "סקר פערים, נהלים, בקרות ומבדק פנימי",
+                comp_r4_inhouse: "תלוי בניסיון אישי ספציפי<br><small>לעיתים מחייב שכירת יועץ חיצוני נוסף</small>",
+                comp_r4_msp: "חלקי וממוקד תשתית<br><small>אינו מכסה היבטי ממשל, נהלים ומשאבי אנוש</small>",
+                comp_r5_param: "שפה וראייה אסטרטגית מול הנהלה",
+                comp_r5_cyberpath: "ראייה עסקית רחבה",
+                comp_r5_cyberpath_sub: "תרגום סיכונים טכניים לשפה עסקית וניהולית",
+                comp_r5_inhouse: "נוכחות הנהלה מלאה<br><small>מחויבות תקציבית גבוהה וקבועה</small>",
+                comp_r5_msp: "מיקוד טכנולוגי-תפעולי<br><small>ללא מעורבות בהחלטות אסטרטגיות</small>",
+                comp_banner_title: "רוצים לבחון את המודל המתאים ביותר לארגון שלכם?",
+                comp_banner_desc: "שיחת היכרות מקצועית ללא התחייבות למיפוי הצרכים, הסיכונים וההזדמנויות.",
+                bar_call: "חיוג ישיר",
+                bar_wa: "WhatsApp",
+                bar_cta: "תיאום שיחה",
                 f_statutory_notice: 'מסירת הפרטים בטופס זה תלויה ברצונך החופשי, והם ישמשו אך ורק לצורך מענה לפנייתך ומתן השירות בהתאם ל<a href="javascript:void(0)" onclick="openPrivacyModal()">מדיניות הפרטיות</a>.',
                 footer_rights: "© 2026 Cyber Path. כל הזכויות שמורות. שירותי CIO & CISO חיצוניים, תאימות והמשכיות עסקית."
             },
@@ -3493,6 +3852,46 @@
                 nav_accessibility: "Accessibility Statement",
                 nav_terms: "Terms of Service",
                 skip_to_content: "Skip to main content",
+                eeat_badge_text: "Authored & reviewed by Rubi Paz, Fractional CIO & CISO | Last updated: 2026",
+                nav_comparison: "Comparison",
+                comp_tag: "Model Comparison",
+                comp_title: "Choosing the Right Cyber Leadership Model for Your Organization",
+                comp_desc: "Fractional CISO & CIO advisory offers executive-grade strategic vision and hands-on governance at a fraction of the cost of a full-time in-house hire or an unqualified MSP.",
+                comp_th_param: "Comparison Metric",
+                comp_th_cyberpath: "Cyber Path (Fractional CISO/CIO)",
+                comp_badge_recommended: "Recommended Choice",
+                comp_th_inhouse: "Full-Time In-House CISO",
+                comp_th_msp: "Standard IT MSP",
+                comp_r1_param: "Annual Organizational Cost",
+                comp_r1_cyberpath: "Flexible Scoped Model",
+                comp_r1_cyberpath_sub: "50%–70% savings compared to executive payroll",
+                comp_r1_inhouse: "$150,000 - $250,000+<br><small>Executive salary, benefits & recruiter overhead</small>",
+                comp_r1_msp: "Routine Support Retainer<br><small>Unpredictable surges for external advisory</small>",
+                comp_r2_param: "Deployment & Onboarding Speed",
+                comp_r2_cyberpath: "Immediate (Within Days)",
+                comp_r2_cyberpath_sub: "Rapid, frictionless integration without sourcing lag",
+                comp_r2_inhouse: "3 to 6 Months<br><small>Lengthy executive search, hiring & ramp-up</small>",
+                comp_r2_msp: "Ongoing Helpdesk Availability<br><small>Lacks strategic initiative and governance planning</small>",
+                comp_r3_param: "Vendor Independence & Objectivity",
+                comp_r3_cyberpath: "100% Objective & Independent",
+                comp_r3_cyberpath_sub: "Zero commercial kickbacks or vendor resale bias",
+                comp_r3_inhouse: "Internal Perspective<br><small>Subject to internal politics & siloed views</small>",
+                comp_r3_msp: "Inherent Conflict of Interest<br><small>Commercial incentives to push proprietary licenses</small>",
+                comp_r4_param: "ISO 27001 & Regulatory Readiness",
+                comp_r4_cyberpath: "Structured & Proven Playbook",
+                comp_r4_cyberpath_sub: "Gap analysis, policies, controls & internal audit",
+                comp_r4_inhouse: "Dependent on Individual<br><small>Frequently requires hiring an outside consultant</small>",
+                comp_r4_msp: "Partial & Infrastructure Only<br><small>Does not cover HR, governance, or policies</small>",
+                comp_r5_param: "Strategic Executive & Board Alignment",
+                comp_r5_cyberpath: "Executive Business Language",
+                comp_r5_cyberpath_sub: "Translates technical risks into bottom-line decisions",
+                comp_r5_inhouse: "Full Executive Presence<br><small>Requires high fixed annual overhead</small>",
+                comp_r5_msp: "Technical & Reactive Focus<br><small>Absent from business strategy and board meetings</small>",
+                comp_banner_title: "Ready to Evaluate the Optimal Leadership Model?",
+                comp_banner_desc: "Schedule an exploratory, no-obligation discussion to map your gaps, requirements, and growth roadmap.",
+                bar_call: "Call Us",
+                bar_wa: "WhatsApp",
+                bar_cta: "Book Meeting",
                 f_statutory_notice: 'Submitting your details is entirely voluntary and will be used solely to respond to your inquiry and deliver our services pursuant to our <a href="javascript:void(0)" onclick="openPrivacyModal()">Privacy Policy</a>.',
                 f_contact_title: "Contact",
                 f_contact_desc: "Leave your details and we will reach out promptly to schedule an exploratory discussion.",
