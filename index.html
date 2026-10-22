@@ -279,16 +279,17 @@
             }
         }
 
-        /* הכלה גלובלית כפולה על html ו-body למניעת חריגות רוחב במובייל (Zero Horizontal Scroll) */
+        /* הכלה גלובלית למניעת חריגות רוחב במובייל (Zero Horizontal Scroll) תוך שמירה על position: sticky תקין */
         html {
             max-width: 100%;
-            overflow-x: hidden;
+            overflow-x: clip;
             scroll-behavior: smooth;
+            scroll-padding-top: 85px;
         }
 
         body {
             max-width: 100%;
-            overflow-x: hidden;
+            overflow-x: clip;
             position: relative;
             font-family: 'Heebo', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-canvas);
@@ -298,6 +299,10 @@
                 radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
                 radial-gradient(circle at 85% 75%, rgba(2, 132, 199, 0.08) 0%, transparent 45%);
             background-attachment: fixed;
+        }
+
+        section[id] {
+            scroll-margin-top: 85px;
         }
 
         body.lang-en {
@@ -509,16 +514,22 @@
             font-weight: 700;
         }
 
-        /* כותרת עליונה וניווט */
+        /* כותרת עליונה וניווט צף */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background-color: rgba(7, 13, 24, 0.88);
+            background-color: rgba(7, 13, 24, 0.92);
             border-bottom: 1px solid var(--border-subtle);
-            transition: var(--transition-smooth);
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(7, 13, 24, 0.97);
+            border-bottom-color: rgba(6, 182, 212, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 1px 0 rgba(6, 182, 212, 0.15);
         }
 
         nav {
@@ -1967,7 +1978,7 @@
     </div>
 
     <!-- כותרת ראשית וניווט -->
-    <header>
+    <header id="mainHeader">
         <div class="container">
             <nav aria-label="Main Navigation">
                 <a href="#home" class="logo" aria-label="Cyber Path - דף הבית">
@@ -4220,6 +4231,16 @@
                 }
             }
         });
+
+        // אפקט גלילה צף לתפריט הניווט (Floating Navigation Header on Scroll)
+        const mainHeader = document.getElementById('mainHeader') || document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                mainHeader.classList.add('scrolled');
+            } else {
+                mainHeader.classList.remove('scrolled');
+            }
+        }, { passive: true });
 
         // מעקב המרות אנליטיקס (GA4 & Meta Pixel)
         function trackLeadConversion(data) {
