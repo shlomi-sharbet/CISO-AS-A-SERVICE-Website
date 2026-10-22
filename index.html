@@ -711,26 +711,28 @@
 
         /* אזור ראשי - Hero */
         .hero {
-            padding: 90px 0 80px;
+            padding: 95px 0 85px;
             position: relative;
         }
 
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 50px;
+        .hero-content {
+            max-width: 880px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
         }
 
         .hero-badge-pill {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 16px;
+            padding: 6px 18px;
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid var(--border-highlight);
             border-radius: 999px;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--primary-light);
             margin-bottom: 24px;
@@ -752,12 +754,13 @@
         }
 
         .hero-title {
-            font-size: 2.85rem;
+            font-size: 3.1rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.22;
             color: var(--text-heading);
             margin-bottom: 22px;
             letter-spacing: -0.02em;
+            max-width: 860px;
         }
 
         .hero-title .gradient-text {
@@ -767,23 +770,30 @@
         }
 
         .hero-desc {
-            font-size: 1.14rem;
+            font-size: 1.18rem;
             color: var(--text-body);
-            line-height: 1.7;
-            margin-bottom: 32px;
+            line-height: 1.75;
+            margin-bottom: 34px;
+            max-width: 740px;
         }
 
         .hero-cta-group {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 16px;
             flex-wrap: wrap;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
         }
 
         .hero-trust-bar {
-            padding-top: 24px;
+            padding-top: 28px;
             border-top: 1px solid var(--border-subtle);
+            width: 100%;
+            max-width: 820px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .hero-trust-title {
@@ -791,26 +801,36 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             font-weight: 600;
+            text-align: center;
         }
 
         .trust-tags {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
+            margin-bottom: 16px;
         }
 
         .trust-tag {
-            font-size: 0.84rem;
-            padding: 5px 12px;
+            font-size: 0.86rem;
+            padding: 6px 14px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
-            border-radius: 6px;
+            border-radius: 999px;
             color: var(--text-body);
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .trust-tag:hover {
+            border-color: var(--border-highlight);
+            background: rgba(6, 182, 212, 0.08);
+            color: #ffffff;
         }
 
         .trust-tag svg {
@@ -819,114 +839,19 @@
             fill: var(--cyan);
         }
 
-        /* Hero Executive Dashboard Card */
-        .executive-dashboard-card {
-            background: linear-gradient(165deg, rgba(17, 29, 53, 0.95) 0%, rgba(12, 21, 39, 0.95) 100%);
-            border: 1px solid var(--border-highlight);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            box-shadow: var(--shadow-card), 0 0 40px rgba(6, 182, 212, 0.12);
-            position: relative;
-        }
-
-        .dash-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .dash-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-heading);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .dash-status-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
-            font-size: 0.78rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 999px;
+        .eeat-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        .dash-metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 22px;
-        }
-
-        .metric-box {
-            background: rgba(7, 13, 24, 0.6);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            padding: 14px;
-            transition: var(--transition-smooth);
-        }
-
-        .metric-box:hover {
-            border-color: var(--border-highlight);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .metric-label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .metric-value {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--text-heading);
-        }
-
-        .metric-value.cyan { color: var(--cyan); }
-        .metric-value.emerald { color: var(--emerald); }
-
-        .dash-pillars-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .pillar-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            font-size: 0.88rem;
-        }
-
-        .pillar-row .name {
-            display: flex;
-            align-items: center;
+            justify-content: center;
             gap: 8px;
-            font-weight: 600;
-            color: var(--text-heading);
-        }
-
-        .pillar-row .check-pill {
-            color: var(--emerald);
             font-size: 0.82rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            max-width: 100%;
         }
 
         /* סקציות כלליות */
@@ -1952,7 +1877,6 @@
 
         /* רספונסיביות למסכים שונים */
         @media (max-width: 1080px) {
-            .hero-grid,
             .about-grid {
                 grid-template-columns: 1fr;
             }
@@ -2095,97 +2019,37 @@
         <!-- אזור ראשי - Hero -->
         <section id="home" class="hero">
         <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge-pill">
-                        <span class="pulse-dot"></span>
-                        <span id="heroBadge" data-i18n="hero_badge">הנהגת סייבר, תאימות וטכנולוגיה לארגונים</span>
-                    </div>
-
-                    <h1 class="hero-title" id="heroTitle" data-i18n="hero_title">
-                        הופכים סיכוני סייבר ותאימות ל<span class="gradient-text">תוכנית עבודה עסקית</span>
-                    </h1>
-
-                    <p class="hero-desc" id="heroDesc" data-i18n="hero_desc">
-                        שירותי CIO ו־CISO חיצוניים, היערכות ל־ISO 27001, המשכיות עסקית והובלת אבטחת מידע עבור ארגונים הזקוקים לניסיון בכיר, ללא העלות והמחויבות של מנהל במשרה מלאה.
-                    </p>
-
-                    <div class="hero-cta-group">
-                        <a href="#contact" class="btn btn-primary" id="heroPrimaryCta" data-i18n="cta_schedule">לתיאום שיחת היכרות</a>
-                        <a href="#services" class="btn btn-outline" id="heroSecondaryCta" data-i18n="cta_explore_services">לצפייה בשירותים</a>
-                    </div>
-
-                    <div class="hero-trust-bar">
-                        <div class="hero-trust-title" data-i18n="trust_title">תחומי מומחיות מעשיים:</div>
-                        <div class="trust-tags">
-                            <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Cybersecurity & CISO</span>
-                            <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> ISO 27001 Readiness</span>
-                            <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> BCP & Disaster Recovery</span>
-                            <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Microsoft 365 & Intune</span>
-                            <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Enterprise Systems & ERP</span>
-                        </div>
-                        <div class="eeat-badge">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                            <span id="eeatAuthorBadge" data-i18n="eeat_badge_text">נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026</span>
-                        </div>
-                    </div>
+            <div class="hero-content">
+                <div class="hero-badge-pill">
+                    <span class="pulse-dot"></span>
+                    <span id="heroBadge" data-i18n="hero_badge">הנהגת סייבר, תאימות וטכנולוגיה לארגונים</span>
                 </div>
 
-                <!-- כרטיס דשבורד מנהלים אינטראקטיבי -->
-                <div class="hero-visual">
-                    <div class="executive-dashboard-card">
-                        <div class="dash-header">
-                            <div class="dash-title">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#06b6d4"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-                                <span data-i18n="dash_title">סטטוס ממשל ואבטחה ארגוני</span>
-                            </div>
-                            <span class="dash-status-badge">
-                                <span class="pulse-dot"></span> <span data-i18n="dash_active">מבוקר ומנוהל</span>
-                            </span>
-                        </div>
+                <h1 class="hero-title" id="heroTitle" data-i18n="hero_title">
+                    הופכים סיכוני סייבר ותאימות ל<span class="gradient-text">תוכנית עבודה עסקית</span>
+                </h1>
 
-                        <div class="dash-metrics-grid">
-                            <div class="metric-box">
-                                <div class="metric-label" data-i18n="metric_leadership">הנהגה טכנולוגית</div>
-                                <div class="metric-value cyan">CIO & CISO</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-label" data-i18n="metric_compliance">מוכנות תאימות</div>
-                                <div class="metric-value emerald">ISO 27001</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-label" data-i18n="metric_resilience">חוסן עסקי</div>
-                                <div class="metric-value emerald">BCP / DR</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-label" data-i18n="metric_model">מודל התקשרות</div>
-                                <div class="metric-value cyan">Fractional</div>
-                            </div>
-                        </div>
+                <p class="hero-desc" id="heroDesc" data-i18n="hero_desc">
+                    שירותי CIO ו־CISO חיצוניים, היערכות ל־ISO 27001, המשכיות עסקית והובלת אבטחת מידע עבור ארגונים הזקוקים לניסיון בכיר, ללא העלות והמחויבות של מנהל במשרה מלאה.
+                </p>
 
-                        <div class="dash-pillars-list">
-                            <div class="pillar-row">
-                                <span class="name">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#06b6d4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                                    <span data-i18n="pillar_1">סקר סיכונים ובקרות סייבר מקיף</span>
-                                </span>
-                                <span class="check-pill" data-i18n="pillar_validated">מאומת</span>
-                            </div>
-                            <div class="pillar-row">
-                                <span class="name">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#06b6d4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                                    <span data-i18n="pillar_2">מפת דרכים טכנולוגית ואבטחה מוגדרת</span>
-                                </span>
-                                <span class="check-pill" data-i18n="pillar_validated">מאומת</span>
-                            </div>
-                            <div class="pillar-row">
-                                <span class="name">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#06b6d4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                                    <span data-i18n="pillar_3">הקשחת Microsoft 365 וזהויות Entra ID</span>
-                                </span>
-                                <span class="check-pill" data-i18n="pillar_validated">מאומת</span>
-                            </div>
-                        </div>
+                <div class="hero-cta-group">
+                    <a href="#contact" class="btn btn-primary" id="heroPrimaryCta" data-i18n="cta_schedule">לתיאום שיחת היכרות</a>
+                    <a href="#services" class="btn btn-outline" id="heroSecondaryCta" data-i18n="cta_explore_services">לצפייה בשירותים</a>
+                </div>
+
+                <div class="hero-trust-bar">
+                    <div class="hero-trust-title" data-i18n="trust_title">תחומי מומחיות מעשיים:</div>
+                    <div class="trust-tags">
+                        <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Cybersecurity & CISO</span>
+                        <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> ISO 27001 Readiness</span>
+                        <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> BCP & Disaster Recovery</span>
+                        <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Microsoft 365 & Intune</span>
+                        <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Enterprise Systems & ERP</span>
+                    </div>
+                    <div class="eeat-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span id="eeatAuthorBadge" data-i18n="eeat_badge_text">נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026</span>
                     </div>
                 </div>
             </div>
@@ -3295,16 +3159,6 @@
                 hero_title: 'הופכים סיכוני סייבר ותאימות ל<span class="gradient-text">תוכנית עבודה עסקית</span>',
                 hero_desc: "שירותי CIO ו־CISO חיצוניים, היערכות ל־ISO 27001, המשכיות עסקית והובלת אבטחת מידע עבור ארגונים הזקוקים לניסיון בכיר, ללא העלות והמחויבות של מנהל במשרה מלאה.",
                 trust_title: "תחומי מומחיות מעשיים:",
-                dash_title: "סטטוס ממשל ואבטחה ארגוני",
-                dash_active: "מבוקר ומנוהל",
-                metric_leadership: "הנהגה טכנולוגית",
-                metric_compliance: "מוכנות תאימות",
-                metric_resilience: "חוסן עסקי",
-                metric_model: "מודל התקשרות",
-                pillar_1: "סקר סיכונים ובקרות סייבר מקיף",
-                pillar_2: "מפת דרכים טכנולוגית ואבטחה מוגדרת",
-                pillar_3: "הקשחת Microsoft 365 וזהויות Entra ID",
-                pillar_validated: "מאומת",
                 problem_tag: "האתגר הניהולי",
                 problem_title: "האם הארגון שלכם באמת מוכן לאירוע סייבר או לביקורת לקוח?",
                 problem_subtitle: "ארגונים רבים רכשו Firewall, מערכת XDR, כלי גיבוי ושירותי ענן, אך עדיין חסרה להם תמונת מצב ניהולית ברורה:",
@@ -3607,16 +3461,6 @@
                 hero_title: 'Turning Cyber Risk and Compliance into an <span class="gradient-text">Actionable Business Plan</span>',
                 hero_desc: "Fractional CIO and CISO services, ISO 27001 readiness, business continuity, and cybersecurity leadership for organizations that need senior expertise without the cost and commitment of a full-time executive.",
                 trust_title: "Hands-on Expertise Across:",
-                dash_title: "Enterprise Governance & Security Posture",
-                dash_active: "Active Governance",
-                metric_leadership: "Tech Leadership",
-                metric_compliance: "Compliance Readiness",
-                metric_resilience: "Business Resilience",
-                metric_model: "Engagement Model",
-                pillar_1: "Comprehensive Cyber Risk & Control Review",
-                pillar_2: "Defined Technology & Security Roadmap",
-                pillar_3: "Microsoft 365 & Entra ID Hardening",
-                pillar_validated: "Verified",
                 problem_tag: "The Management Dilemma",
                 problem_title: "Is your organization truly prepared for a cyber incident or customer audit?",
                 problem_subtitle: "Many organizations have deployed firewalls, XDR, backup platforms, and cloud services, but still lack a clear management view:",
