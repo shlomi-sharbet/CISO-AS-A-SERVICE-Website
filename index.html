@@ -51,7 +51,6 @@
           "legalName": "Cyber Path Advisory Ltd.",
           "url": "https://cyber-path.shlomi-sharbet.workers.dev/",
           "description": "Executive Cybersecurity, Compliance and Technology Advisory for mid-market, industrial and enterprise organizations.",
-          "telephone": "+972-50-0000000",
           "email": "contact@cyber-path.co.il",
           "priceRange": "₪₪₪",
           "address": {
@@ -309,25 +308,6 @@
             font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
         }
 
-        /* אותות E-E-A-T וטריות תוכן */
-        .eeat-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 1.5rem;
-            padding: 8px 16px;
-            background: rgba(6, 182, 212, 0.08);
-            border: 1px solid rgba(6, 182, 212, 0.25);
-            border-radius: 9999px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .eeat-badge svg {
-            color: var(--cyan);
-            flex-shrink: 0;
-        }
-
         /* פרק השוואת חלופות וטבלה סמנטית (Semantic Comparison Table) */
         .section-comparison {
             background: linear-gradient(180deg, var(--bg-canvas) 0%, rgba(12, 21, 39, 0.75) 50%, var(--bg-canvas) 100%);
@@ -431,65 +411,6 @@
                 text-align: center;
                 padding: 20px;
             }
-        }
-
-        /* סרגל פעולות מהיר למובייל (Mobile Sticky Quick-Action Bar) */
-        .mobile-sticky-action-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(7, 13, 24, 0.94);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border-highlight);
-            padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        @media (max-width: 768px) {
-            .mobile-sticky-action-bar {
-                display: flex;
-            }
-            body {
-                padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-            }
-        }
-        .mobile-bar-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            height: 44px;
-            min-height: 44px;
-            min-width: 44px;
-            padding: 0 14px;
-            border-radius: var(--radius-sm);
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition-smooth);
-            flex: 1;
-        }
-        .mobile-call-btn {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-heading);
-            border: 1px solid var(--border-subtle);
-        }
-        .mobile-wa-btn {
-            background: rgba(37, 211, 102, 0.15);
-            color: #25d366;
-            border: 1px solid rgba(37, 211, 102, 0.35);
-        }
-        .mobile-cta-btn {
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--primary) 100%);
-            color: #ffffff;
-            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35);
-            flex: 1.3;
         }
 
         .container {
@@ -848,21 +769,6 @@
             width: 14px;
             height: 14px;
             fill: var(--cyan);
-        }
-
-        .eeat-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.02);
-            padding: 6px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            max-width: 100%;
         }
 
         /* סקציות כלליות */
@@ -2058,10 +1964,6 @@
                         <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Microsoft 365 & Intune</span>
                         <span class="trust-tag"><svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 9 7 9s7-4 7-9V5l-7-3z"/></svg> Enterprise Systems & ERP</span>
                     </div>
-                    <div class="eeat-badge">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                        <span id="eeatAuthorBadge" data-i18n="eeat_badge_text">נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -3127,21 +3029,6 @@
         </div>
     </div>
 
-    <!-- סרגל פעולות מהיר למובייל (Mobile Sticky Quick-Action Bar - CRO & Ergonomics) -->
-    <aside class="mobile-sticky-action-bar" aria-label="סרגל פעולות מהיר למובייל">
-        <a href="tel:050-0000000" class="mobile-bar-btn mobile-call-btn" aria-label="חיוג טלפוני ישיר ל-Cyber Path">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            <span data-i18n="bar_call">חיוג ישיר</span>
-        </a>
-        <a href="https://wa.me/972500000000?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%A4%D7%95%D7%A0%D7%94%20%D7%9E%D7%90%D7%AA%D7%A8%20Cyber%20Path" target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-wa-btn" aria-label="פנייה מהירה ב-WhatsApp">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.55c.13.17 1.73 2.64 4.19 3.7.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg>
-            <span data-i18n="bar_wa">WhatsApp</span>
-        </a>
-        <a href="#contact" class="mobile-bar-btn mobile-cta-btn" aria-label="מעבר לטופס לתיאום פגישה">
-            <span data-i18n="bar_cta">תיאום שיחה</span>
-        </a>
-    </aside>
-
     <!-- סקריפט רשמי של Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
@@ -3408,7 +3295,6 @@
                 nav_accessibility: "הצהרת נגישות (ת״י 5568)",
                 nav_terms: "תנאי שימוש",
                 skip_to_content: "דלג לתוכן המרכזי",
-                eeat_badge_text: "נבדק ונכתב ע״י רובי פז, מוסמך Fractional CIO & CISO | עודכן לאחרונה: 2026",
                 nav_comparison: "השוואת מודלים",
                 comp_tag: "השוואת חלופות מעשית",
                 comp_title: "איך לבחור את מודל ההנהגה הנכון לארגון שלך?",
@@ -3445,9 +3331,6 @@
                 comp_r5_msp: "מיקוד טכנולוגי-תפעולי<br><small>ללא מעורבות בהחלטות אסטרטגיות</small>",
                 comp_banner_title: "רוצים לבחון את המודל המתאים ביותר לארגון שלכם?",
                 comp_banner_desc: "שיחת היכרות מקצועית ללא התחייבות למיפוי הצרכים, הסיכונים וההזדמנויות.",
-                bar_call: "חיוג ישיר",
-                bar_wa: "WhatsApp",
-                bar_cta: "תיאום שיחה",
                 f_statutory_notice: 'מסירת הפרטים בטופס זה תלויה ברצונך החופשי, והם ישמשו אך ורק לצורך מענה לפנייתך ומתן השירות בהתאם ל<a href="javascript:void(0)" onclick="openPrivacyModal()">מדיניות הפרטיות</a>.',
                 footer_rights: "© 2026 Cyber Path. כל הזכויות שמורות. שירותי CIO & CISO חיצוניים, תאימות והמשכיות עסקית."
             },
@@ -3707,7 +3590,6 @@
                 nav_accessibility: "Accessibility Statement",
                 nav_terms: "Terms of Service",
                 skip_to_content: "Skip to main content",
-                eeat_badge_text: "Authored & reviewed by Rubi Paz, Fractional CIO & CISO | Last updated: 2026",
                 nav_comparison: "Comparison",
                 comp_tag: "Model Comparison",
                 comp_title: "Choosing the Right Cyber Leadership Model for Your Organization",
@@ -3744,9 +3626,6 @@
                 comp_r5_msp: "Technical & Reactive Focus<br><small>Absent from business strategy and board meetings</small>",
                 comp_banner_title: "Ready to Evaluate the Optimal Leadership Model?",
                 comp_banner_desc: "Schedule an exploratory, no-obligation discussion to map your gaps, requirements, and growth roadmap.",
-                bar_call: "Call Us",
-                bar_wa: "WhatsApp",
-                bar_cta: "Book Meeting",
                 f_statutory_notice: 'Submitting your details is entirely voluntary and will be used solely to respond to your inquiry and deliver our services pursuant to our <a href="javascript:void(0)" onclick="openPrivacyModal()">Privacy Policy</a>.',
                 f_contact_title: "Contact",
                 f_contact_desc: "Leave your details and we will reach out promptly to schedule an exploratory discussion.",
