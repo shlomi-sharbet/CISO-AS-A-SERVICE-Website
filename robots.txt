@@ -21,4 +21,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://cyber-path.shlomi-sharbet.workers.dev/sitemap.xml
+Sitemap: https://rosh-cyber-sec.shlomi-sharbet.workers.dev/sitemap.xml

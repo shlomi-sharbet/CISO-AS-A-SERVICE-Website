@@ -23,7 +23,7 @@ flowchart LR
         TurnstileWidget["🛡️ Cloudflare Turnstile Widget"]
     end
 
-    subgraph Edge["⚡ Cloudflare Global Edge (Worker: cyber-path)"]
+    subgraph Edge["⚡ Cloudflare Global Edge (Worker: rosh-cyber-sec)"]
         CFStatic["Static Asset Delivery<br/>Edge Caching & TLS 1.3"]
         CFWorker["Edge Worker: _worker.js<br/>• Turnstile siteverify Validation<br/>• Secret Ingestion (Env Vars)<br/>• Honeypot Anti-Spam Check<br/>• Strict Security Headers"]
     end

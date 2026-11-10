@@ -166,7 +166,7 @@ export default {
                 const turnstileSecret = env?.TURNSTILE_SECRET || env?.TURNSTILE_SECRET_KEY;
                 const expectedAction = "contact";
                 const expectedHostnames = new Set(
-                    (env?.TURNSTILE_HOSTNAMES ?? "cyber-path.shlomi-sharbet.workers.dev")
+                    (env?.TURNSTILE_HOSTNAMES ?? "rosh-cyber-sec.shlomi-sharbet.workers.dev")
                         .split(",")
                         .map(h => h.trim())
                         .filter(Boolean)
@@ -261,12 +261,12 @@ export default {
                     try {
                         const recipient = env.BUSINESS_ALERT_EMAIL;
                         const sender = env.FROM_EMAIL || `notifications@${url.hostname.replace(/^www\./, '')}`;
-                        const emailSubject = `פנייה חדשה מאתר Cyber Path: ${cleanPayload.name} (${cleanPayload.company})`;
+                        const emailSubject = `פנייה חדשה מאתר Rosh Cyber Sec: ${cleanPayload.name} (${cleanPayload.company})`;
 
                         const htmlBody = `
                           <div dir="rtl" style="font-family: Arial, 'Heebo', sans-serif; line-height: 1.6; color: #1e293b; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
                             <div style="background: linear-gradient(135deg, #070d18 0%, #0c1527 100%); padding: 24px; color: #ffffff; text-align: center;">
-                              <h1 style="margin: 0; font-size: 22px; color: #38bdf8;">Cyber Path</h1>
+                              <h1 style="margin: 0; font-size: 22px; color: #38bdf8;">Rosh Cyber Sec</h1>
                               <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">התקבלה פנייה חדשה מטופס יצירת הקשר באתר</p>
                             </div>
                             <div style="padding: 24px; background: #ffffff;">
@@ -286,14 +286,14 @@ export default {
                               </div>
                             </div>
                             <div style="padding: 14px; background: #f1f5f9; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
-                              הודעה מאובטחת זו נוצרה ונשלחה אוטומטית ע״י שרתי הקצה של Cyber Path
+                              הודעה מאובטחת זו נוצרה ונשלחה אוטומטית ע״י שרתי הקצה של Rosh Cyber Sec
                             </div>
                           </div>
                         `;
 
                         // מבנה RFC 2822 תואם MIME עם קידוד Base64 UTF-8 לכותרת
                         const rawMime = [
-                            `From: "Cyber Path Alerts" <${sender}>`,
+                            `From: "Rosh Cyber Sec Alerts" <${sender}>`,
                             `To: <${recipient}>`,
                             `Reply-To: <${cleanPayload.email}>`,
                             `Subject: =?utf-8?B?${btoa(unescape(encodeURIComponent(emailSubject)))}?=`,
@@ -318,8 +318,8 @@ export default {
                         const payload = {
                             ...cleanPayload,
                             access_key: accessKey,
-                            subject: typeof data.subject === "string" && data.subject.length <= 150 ? sanitize(data.subject) : "פנייה חדשה מאתר Cyber Path",
-                            from_name: "Cyber Path"
+                            subject: typeof data.subject === "string" && data.subject.length <= 150 ? sanitize(data.subject) : "פנייה חדשה מאתר Rosh Cyber Sec",
+                            from_name: "Rosh Cyber Sec"
                         };
 
                         const response = await fetch("https://api.web3forms.com/submit", {
