@@ -509,38 +509,70 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 16px;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--text-body);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             font-weight: 500;
             transition: var(--transition-smooth);
             position: relative;
-            padding: 6px 0;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
         }
 
         .nav-links a:hover {
             color: var(--primary-light);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0px;
+            left: 8px;
+            right: 8px;
             height: 2px;
-            background: var(--cyan);
+            background: linear-gradient(90deg, var(--cyan), var(--primary-light));
             transform: scaleX(0);
-            transition: transform 0.25s ease;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            border-radius: 2px;
+            opacity: 0;
         }
 
         .nav-links a:hover::after {
             transform: scaleX(1);
+            opacity: 0.7;
+        }
+
+        /* פידבק בולט ויוקרתי בבר התפריט עבור האזור הפעיל (Active Navigation Feedback / Scrollspy) */
+        .nav-links a.active {
+            color: #38bdf8;
+            font-weight: 600;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            box-shadow: 0 0 16px rgba(6, 182, 212, 0.16);
+        }
+
+        .nav-links a.active::after {
+            transform: scaleX(1);
+            opacity: 1;
+            height: 2.5px;
+            background: linear-gradient(90deg, #06b6d4, #38bdf8);
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.9), 0 0 16px rgba(56, 189, 248, 0.5);
+        }
+
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .nav-links {
+                gap: 8px;
+            }
+            .nav-links a {
+                font-size: 0.86rem;
+                padding: 5px 6px;
+            }
         }
 
         .nav-actions {
@@ -1837,6 +1869,26 @@
                 display: flex;
             }
 
+            .nav-links a {
+                padding: 10px 14px;
+                display: block;
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            .nav-links a.active {
+                color: #38bdf8;
+                font-weight: 700;
+                background: rgba(6, 182, 212, 0.14);
+                border: 1px solid rgba(6, 182, 212, 0.35);
+                border-inline-start: 4px solid var(--cyan);
+                box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+            }
+
+            .nav-links a.active::after {
+                display: none;
+            }
+
             .nav-actions .btn {
                 display: none;
             }
@@ -1902,12 +1954,12 @@
                 </a>
 
                 <ul class="nav-links" id="navMenu">
-                    <li><a href="#home" class="nav-item" data-i18n="nav_home">דף הבית</a></li>
+                    <li><a href="#home" class="nav-item active" aria-current="page" data-i18n="nav_home">דף הבית</a></li>
                     <li><a href="#services" class="nav-item" data-i18n="nav_services">שירותים</a></li>
                     <li><a href="#industries" class="nav-item" data-i18n="nav_industries">מגזרים</a></li>
                     <li><a href="#about" class="nav-item" data-i18n="nav_about">אודות</a></li>
                     <li><a href="#method" class="nav-item" data-i18n="nav_method">שיטת עבודה</a></li>
-                    <li><a href="#comparison" class="nav-item" data-i18n="nav_comparison">השוואה</a></li>
+                    <li><a href="#comparison" class="nav-item" data-i18n="nav_comparison">השוואת מודלים</a></li>
                     <li><a href="#packages" class="nav-item" data-i18n="nav_packages">חבילות</a></li>
                     <li><a href="#insights" class="nav-item" data-i18n="nav_insights">תובנות</a></li>
                     <li><a href="#faq" class="nav-item" data-i18n="nav_faq">שאלות נפוצות</a></li>
@@ -4123,15 +4175,102 @@
             }
         });
 
-        // אפקט גלילה צף לתפריט הניווט (Floating Navigation Header on Scroll)
+        // אפקט גלילה צף וניהול פידבק פעיל בתפריט (Scrollspy & Active Navigation State)
         const mainHeader = document.getElementById('mainHeader') || document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
+        const navMenuLinks = document.querySelectorAll('#navMenu .nav-item');
+        const scrollSectionIds = [
+            'home',
+            'services',
+            'industries',
+            'about',
+            'method',
+            'comparison',
+            'packages',
+            'insights',
+            'faq',
+            'contact'
+        ];
+
+        function setActiveNav(targetId) {
+            navMenuLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === '#' + targetId) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function updateScrollNavState() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+
+            // עדכון מחלקת scrolled לכותרת הראשית
+            if (scrollY > 20) {
                 mainHeader.classList.add('scrolled');
             } else {
                 mainHeader.classList.remove('scrolled');
             }
+
+            // אם הגענו לסוף העמוד - סמן את יצירת קשר כפעיל
+            if (windowHeight + scrollY >= docHeight - 80) {
+                setActiveNav('contact');
+                return;
+            }
+
+            // נקודת הדק - 140px מעל האלמנט (מחשב את גובה הכותרת הצפה של 80px + סרגל עליון ומרווח)
+            const triggerPoint = scrollY + 140;
+            let currentActiveId = 'home';
+
+            for (let i = 0; i < scrollSectionIds.length; i++) {
+                const secId = scrollSectionIds[i];
+                const secEl = document.getElementById(secId);
+                if (secEl) {
+                    const secTop = secEl.getBoundingClientRect().top + scrollY;
+                    if (triggerPoint >= secTop) {
+                        currentActiveId = secId;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            setActiveNav(currentActiveId);
+        }
+
+        // האזנה אופטימלית לגלילה באמצעות requestAnimationFrame לביצועים חלקים
+        let isScrollTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!isScrollTicking) {
+                window.requestAnimationFrame(() => {
+                    updateScrollNavState();
+                    isScrollTicking = false;
+                });
+                isScrollTicking = true;
+            }
         }, { passive: true });
+
+        // פידבק מיידי בעת לחיצה על פריט בתפריט
+        navMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const targetId = this.getAttribute('href')?.replace('#', '');
+                if (targetId) {
+                    setActiveNav(targetId);
+                }
+            });
+        });
+
+        // הפעלה ראשונית בטעינה ובעת שינוי גודל חלון או Hash
+        window.addEventListener('resize', updateScrollNavState);
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) setActiveNav(hash);
+        });
+        updateScrollNavState();
 
         // מעקב המרות אנליטיקס (GA4 & Meta Pixel)
         function trackLeadConversion(data) {
